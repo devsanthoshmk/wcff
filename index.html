@@ -53,197 +53,204 @@
 		}
 
     .main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
 
-.main .wrap {
-  margin: 2rem;
+    .main .wrap {
+      margin: 2rem;
 
-  transform-style: preserve-3d;
-  transform: perspective(100rem);
+      transform-style: preserve-3d;
+      transform: perspective(100rem);
 
-  cursor: pointer;
-}
+      cursor: pointer;
+    }
 
-.main .container {
-  --rX: 0;
-  --rY: 0;
-  --bX: 50%;
-  --bY: 80%;
+    .main .container {
+      --rX: 0;
+      --rY: 0;
+      --bX: 50%;
+      --bY: 80%;
 
- 
-  border: 1px solid var(--background-color);
-  border-radius: 1.6rem;
-  padding: 4rem;
+    
+      border: 1px solid var(--background-color);
+      border-radius: 1.6rem;
+      padding: 4rem;
 
-  display: flex;
-  align-items: flex-end;
+      display: flex;
+      align-items: flex-end;
 
-  position: relative;
-  transform: rotateX(calc(var(--rX) * 1deg)) rotateY(calc(var(--rY) * 1deg));
+      position: relative;
+      transform: rotateX(calc(var(--rX) * 1deg)) rotateY(calc(var(--rY) * 1deg));
 
-  background: linear-gradient(hsla(0, 0%, 100%, .1), hsla(32, 57, 84));
-  background-position: var(--bX) var(--bY);
-  background-size: 40rem auto;
-  box-shadow: 0 0 3rem .5rem hsla(0, 0%, 0%);
+      background: linear-gradient(hsla(0, 0%, 100%, .1), hsla(32, 57, 84));
+      background-position: var(--bX) var(--bY);
+      background-size: 40rem auto;
+      box-shadow: 0 0 3rem .5rem hsla(0, 0%, 0%);
 
-  transition: transform .6s 1s;
-}
+      transition: transform .6s 1s;
+    }
 
-.main .container::before,
-.main .container::after {
-  content: "";
+    .main .container::before,
+    .main .container::after {
+      content: "";
 
-  width: 2rem;
-  height: 2rem;
-  border: 1px solid #fff;
+      width: 2rem;
+      height: 2rem;
+      border: 1px solid #fff;
 
-  position: absolute;
-  z-index: 2;
+      position: absolute;
+      z-index: 2;
 
-  opacity: .6;
-  transition: .3s;
-}
+      opacity: .6;
+      transition: .3s;
+    }
 
-.main .container::before {
-  top: 2rem;
-  right: 2rem;
+    .main .container::before {
+      top: 2rem;
+      right: 2rem;
 
-  border-bottom-width: 0;
-  border-left-width: 0;
-}
+      border-bottom-width: 0;
+      border-left-width: 0;
+    }
 
-.main .container::after {
-  bottom: 2rem;
-  left: 2rem;
+    .main .container::after {
+      bottom: 2rem;
+      left: 2rem;
 
-  border-top-width: 0;
-  border-right-width: 0;
-}
+      border-top-width: 0;
+      border-right-width: 0;
+    }
 
-.main .container--active {
-  transition: none;
-}
+    .main .container--active {
+      transition: none;
+    }
 
-.main .container--2 {
-  filter: hue-rotate(80deg) saturate(140%);
-}
+    .main .container--2 {
+      filter: hue-rotate(80deg) saturate(140%);
+    }
 
-.main .container--3 {
-  filter: hue-rotate(160deg) saturate(140%);
-}
+    .main .container--3 {
+      filter: hue-rotate(160deg) saturate(140%);
+    }
 
-.main .container p {
-  color: hsla(0, 0%, 100%, .6);
-  font-size: 0.8rem;
-  text-align: left;
-}
+    .main .container p {
+      color: hsla(0, 0%, 100%, .6);
+      font-size: 0.8rem;
+      text-align: left;
+    }
 
-.main .wrap:hover .container::before,
-.main .wrap:hover .container::after {
-  width: calc(100% - 4rem);
-  height: calc(100% - 4rem);
-}
+    .main .wrap:hover .container::before,
+    .main .wrap:hover .container::after {
+      width: calc(100% - 4rem);
+      height: calc(100% - 4rem);
+    }
 
-.main .abs-site-link {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  color: hsla(0, 0%, 0%);
-  font-size: 1.6rem;
-} 
+    .main .abs-site-link {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      color: hsla(0, 0%, 0%);
+      font-size: 1.6rem;
+    } 
 
-/*****************************************/
-.solutions {
-  /* The image used */
-  background-image: url(assets/img/slider-2.jpg);
+    /*****************************************/
+    .solutions {
+      /* The image used */
+      background-image: url(assets/img/slider-2.jpg);
 
-  /* Set a specific height */
-  min-height: 500px;
+      /* Set a specific height */
+      min-height: 500px;
 
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+      /* Create the parallax scrolling effect */
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
 
-.solutions .wrapper{
-  width: 100%;
-  max-width: 100%;
-  margin: auto;
-}
+    .solutions .wrapper{
+      width: 100%;
+      max-width: 100%;
+      margin: auto;
+    }
 
-.solutions h1{
-  color: #fff;
-  font-weight: normal;
-  text-align: center;
-  font-size: 48px;
-}
+    .solutions h1{
+      color: #fff;
+      font-weight: normal;
+      text-align: center;
+      font-size: 48px;
+    }
 
-.solutions .panels{
-  list-style-type: none;
-  padding: 0;
-}
+    .solutions .panels{
+      list-style-type: none;
+      padding: 0;
+    }
 
-.solutions .panels li{
+    .solutions .panels li{
 
-  margin: 0;
-  display: block;
-  box-sizing: border-box;
-  float: left;
-}
+      margin: 0;
+      display: block;
+      box-sizing: border-box;
+      float: left;
+    }
 
-.solutions .panels li div{
-  padding: 10% 0;
-  text-align: center;
-  color: #fff;
-  font-size: 11px;
-  letter-spacing: 2px;
-  cursor: pointer;
-  height: 50vh;
-}
+    .solutions .panels li div{
+      padding: 10% 0;
+      text-align: center;
+      color: #fff;
+      font-size: 11px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      height: 50vh;
+    }
 
-/*// ANIMATION STYLES //*/
+    /*// ANIMATION STYLES //*/
 
-.solutions .panels div.back {
-  transform: rotateY(90deg);
-}
+    .solutions .panels div.back {
+      transform: rotateY(90deg);
+    }
 
-.solutions .panels div.front {
-  position: absolute;
-}
+    .solutions .panels div.front {
+      position: absolute;
+    }
 
-.solutions .panels li:hover div.front {
-  animation: twirl 0.2s ease-in forwards;
-}
-.solutions .panels li:hover div.back {
-  animation: twirl 0.2s 0.2s ease-out forwards reverse;
-}
+    .solutions .panels li:hover div.front {
+      animation: twirl 0.2s ease-in forwards;
+    }
+    .solutions .panels li:hover div.back {
+      animation: twirl 0.2s 0.2s ease-out forwards reverse;
+    }
 
-@keyframes twirl {
-  0%{ transform: rotateY(0deg)}
-  100% {transform: rotateY(90deg)}
-}
+    @keyframes twirl {
+      0%{ transform: rotateY(0deg)}
+      100% {transform: rotateY(90deg)}
+    }
 
-.why-us {
-  /* The image used */
-  background-image: url(assets/img/slider-2.jpg);
+    .why-us {
+      /* The image used */
+      background-image: url(assets/img/slider-2.jpg);
 
-  /* Set a specific height */
-  min-height: 350px;
+      /* Set a specific height */
+      min-height: 350px;
 
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+      /* Create the parallax scrolling effect */
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
 
 	</style>
+  <!--/ Template Main CSS File -->
+
+  <!-- reg css -->
+  <link href="assets/css/reg_style.css" rel="stylesheet">
+  <!--/ reg css -->
+
+
 </head>
 
 <body>
@@ -265,13 +272,87 @@
           <li><a href="#ourapproach">Our approach</a></li>
           <li><a href="#team">Solutions</a></li>
 		      <li><a href="#contact">Contact Us</a></li>
-		      <li><a id="reg">Internship</a></li>
+		      <li><a id="opreg" onclick="toggleReg()">Internship</a></li>
         </ul>
             
       </nav><!-- .nav-menu -->
 
     </div>
   </header><!-- End #header -->
+  <!-- reg form -->
+  <div onclick="toggleReg()">
+    <div id='reg' class="container-reg">
+      <!-- Title section -->
+      <div class="title">Registration</div>
+      <div class="content">
+        <!-- Registration form -->
+        <form action="#">
+          <div class="user-details">
+            <!-- Input for Full Name -->
+            <div class="input-box">
+              <span class="details">Full Name</span>
+              <input type="text" placeholder="Enter your name" required>
+            </div>
+            <!-- Input for Username -->
+            <div class="input-box">
+              <span class="details">Username</span>
+              <input type="text" placeholder="Enter your username" required>
+            </div>
+            <!-- Input for Email -->
+            <div class="input-box">
+              <span class="details">Email</span>
+              <input type="text" placeholder="Enter your email" required>
+            </div>
+            <!-- Input for Phone Number -->
+            <div class="input-box">
+              <span class="details">Phone Number</span>
+              <input type="text" placeholder="Enter your number" required>
+            </div>
+            <!-- Input for Password -->
+            <div class="input-box">
+              <span class="details">Password</span>
+              <input type="text" placeholder="Enter your password" required>
+            </div>
+            <!-- Input for Confirm Password -->
+            <div class="input-box">
+              <span class="details">Confirm Password</span>
+              <input type="text" placeholder="Confirm your password" required>
+            </div>
+            <div class="gender-details">
+              <!-- Radio buttons for gender selection -->
+              <input type="radio" name="gender" id="dot-1">
+              <input type="radio" name="gender" id="dot-2">
+              <input type="radio" name="gender" id="dot-3">
+              <span class="gender-title">Gender</span>
+              <div class="category">
+                <!-- Label for Male -->
+                <label for="dot-1">
+                  <span class="dot one"></span>
+                  <span class="gender">Male</span>
+                </label>
+                <!-- Label for Female -->
+                <label for="dot-2">
+                  <span class="dot two"></span>
+                  <span class="gender">Female</span>
+                </label>
+                <!-- Label for Prefer not to say -->
+                <label for="dot-3">
+                  <span class="dot three"></span>
+                  <span class="gender">Prefer not to say</span>
+                </label>
+              </div>
+            </div>
+          </div>
+    <!--/ reg form end-->
+          
+          <!-- Submit button -->
+          <div class="button">
+            <input type="submit" value="Register">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <!-- ======= Hero Section ======= -->
   <section >
@@ -580,6 +661,10 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- reg js -->
+  <script src="assets/js/reg.js"></script>
+  
 
 </body>
 

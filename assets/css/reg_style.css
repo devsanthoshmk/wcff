@@ -1,7 +1,7 @@
 /* Importing Google Fonts - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -15,24 +15,44 @@ body {
   align-items: center;
   padding: 10px;
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
-}
+} */
 
-.container {
+.container-reg {
+  position:absolute;
   max-width: 700px;
   width: 100%;
   background-color: #fff;
   padding: 25px 30px;
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  top: 41px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: fit-content;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.5s ease;
+  pointer-events: none;
 }
 
-.container .title {
+.container-reg.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.container-reg .title {
   font-size: 25px;
   font-weight: 500;
   position: relative;
 }
 
-.container .title::before {
+.container-reg .title::before {
   content: "";
   position: absolute;
   left: 0;
@@ -48,6 +68,10 @@ body {
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 20px 0 12px 0;
+}
+.content form .user-details {
+  max-height: 340px;
+  overflow-y: scroll;
 }
 
 form .user-details .input-box {
@@ -133,16 +157,23 @@ form .button input {
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
-  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  background: linear-gradient(135deg, #5f8fc4, #0494fa);
 }
 
 form .button input:hover {
-  background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+  background: linear-gradient(-135deg, #5f8fc4, #0494fa);
 }
 
+.blurblackbg{
+  background-color: rgba(3, 3, 3, 0.264);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1000;
+}
 /* Responsive media query code for mobile devices */
 @media(max-width: 584px) {
-  .container {
+  .container-reg {
     max-width: 100%;
   }
 
@@ -156,7 +187,7 @@ form .button input:hover {
   }
 
   .content form .user-details {
-    max-height: 300px;
+    max-height: 237px;
     overflow-y: scroll;
   }
 
@@ -167,7 +198,7 @@ form .button input:hover {
 
 /* Responsive media query code for mobile devices */
 @media(max-width: 459px) {
-  .container .content .category {
+  .container-reg .content .category {
     flex-direction: column;
   }
 }
