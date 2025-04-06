@@ -272,7 +272,7 @@
           <li><a href="#ourapproach">Our approach</a></li>
           <li><a href="#team">Solutions</a></li>
 		      <li><a href="#contact">Contact Us</a></li>
-		      <li><a id="opreg" onclick="toggleReg()">Internship</a></li>
+		      <li><a id="opreg" onclick="toggleReg(event)">Internship</a></li>
         </ul>
             
       </nav><!-- .nav-menu -->
@@ -280,7 +280,7 @@
     </div>
   </header><!-- End #header -->
   <!-- reg form -->
-  <div onclick="toggleReg()">
+  <div onclick="toggleReg(event)">
     <div id='reg' class="container-reg">
       <!-- Title section -->
       <div class="title">Registration</div>
@@ -294,10 +294,10 @@
               <input type="text" placeholder="Enter your name" required>
             </div>
             <!-- Input for Username -->
-            <div class="input-box">
+            <!-- <div class="input-box">
               <span class="details">Username</span>
               <input type="text" placeholder="Enter your username" required>
-            </div>
+            </div> -->
             <!-- Input for Email -->
             <div class="input-box">
               <span class="details">Email</span>
@@ -310,36 +310,33 @@
             </div>
             <!-- Input for Password -->
             <div class="input-box">
-              <span class="details">Password</span>
-              <input type="text" placeholder="Enter your password" required>
+              <span class="details">Domain</span>
+              <input type="text" placeholder="Enter your Domain" required>
             </div>
             <!-- Input for Confirm Password -->
             <div class="input-box">
-              <span class="details">Confirm Password</span>
+              <span class="details">Available Period</span>
               <input type="text" placeholder="Confirm your password" required>
             </div>
             <div class="gender-details">
               <!-- Radio buttons for gender selection -->
               <input type="radio" name="gender" id="dot-1">
               <input type="radio" name="gender" id="dot-2">
-              <input type="radio" name="gender" id="dot-3">
-              <span class="gender-title">Gender</span>
+              
+              
               <div class="category">
                 <!-- Label for Male -->
                 <label for="dot-1">
                   <span class="dot one"></span>
-                  <span class="gender">Male</span>
+                  <span class="gender">online</span>
                 </label>
                 <!-- Label for Female -->
                 <label for="dot-2">
                   <span class="dot two"></span>
-                  <span class="gender">Female</span>
+                  <span class="gender">Offline</span>
                 </label>
                 <!-- Label for Prefer not to say -->
-                <label for="dot-3">
-                  <span class="dot three"></span>
-                  <span class="gender">Prefer not to say</span>
-                </label>
+                
               </div>
             </div>
           </div>

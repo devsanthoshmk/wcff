@@ -1,5 +1,8 @@
 const reg=document.getElementById("reg");
-function toggleReg(){
+function toggleReg(event=null){
+    if (event && event.target !== event.currentTarget) return;
+    
+    window.scrollTo(0,0);
     reg.classList.toggle("visible")
     reg.parentElement.classList.toggle("blurblackbg");
     document.documentElement.classList.toggle("overflow-hidden")

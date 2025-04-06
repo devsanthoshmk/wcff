@@ -71,7 +71,7 @@ body {
 }
 .content form .user-details {
   max-height: 340px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 form .user-details .input-box {
@@ -99,7 +99,7 @@ form .input-box span.details {
 
 .user-details .input-box input:focus,
 .user-details .input-box input:valid {
-  border-color: #9b59b6;
+  border-color: #5f8fc4;
 }
 
 form .gender-details .gender-title {
