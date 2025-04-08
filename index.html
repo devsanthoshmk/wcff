@@ -293,11 +293,6 @@
               <span class="details">Full Name</span>
               <input type="text" placeholder="Enter your name" required>
             </div>
-            <!-- Input for Username -->
-            <!-- <div class="input-box">
-              <span class="details">Username</span>
-              <input type="text" placeholder="Enter your username" required>
-            </div> -->
             <!-- Input for Email -->
             <div class="input-box">
               <span class="details">Email</span>
@@ -308,39 +303,82 @@
               <span class="details">Phone Number</span>
               <input type="text" placeholder="Enter your number" required>
             </div>
-            <!-- Input for Password -->
-            <div class="input-box">
+            <!-- Domain Selection Dropdown -->
+            <div class="input-box" style="height: 72px;">
               <span class="details">Domain</span>
-              <input type="text" placeholder="Enter your Domain" required>
-            </div>
-            <!-- Input for Confirm Password -->
-            <div class="input-box">
-              <span class="details">Available Period</span>
-              <input type="text" placeholder="Confirm your password" required>
-            </div>
-            <div class="gender-details">
-              <!-- Radio buttons for gender selection -->
-              <input type="radio" name="gender" id="dot-1">
-              <input type="radio" name="gender" id="dot-2">
-              
-              
-              <div class="category">
-                <!-- Label for Male -->
-                <label for="dot-1">
-                  <span class="dot one"></span>
-                  <span class="gender">online</span>
+              <div class="select">
+                <!-- Using hidden checkbox to toggle dropdown -->
+                <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle">
+                <label for="dropdown-toggle" class="selected" data-default="Select Domain" data-one="AI" data-two="Data Science" data-three="Web Development" data-four="Cybersecurity" data-five="Editing" data-six="Cinematography" data-seven="Filmmaking" data-eight="Content Creation">
+                  <span class="selected-text">Select Domain</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="arrow">
+                    <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path>
+                  </svg>
                 </label>
-                <!-- Label for Female -->
-                <label for="dot-2">
-                  <span class="dot two"></span>
-                  <span class="gender">Offline</span>
-                </label>
-                <!-- Label for Prefer not to say -->
-                
+                <div class="options">
+                  <div title="all">
+                    <input id="all" name="option" type="radio" checked="">
+                    <label class="option" onclick="document.getElementById('dropdown-toggle').checked = false;" for="all" data-txt="Select Domain"></label>
+                  </div>
+                  <div title="Technical-Domain">
+                    <input id="option-1" name="option" type="radio">
+                    <label class="option" onclick="document.getElementById('dropdown-toggle').checked = false;" for="option-1" data-txt="AI"></label>
+                  </div>
+                  <div title="Technical-Domain">
+                    <input id="option-2" name="option" type="radio">
+                    <label class="option" onclick="document.getElementById('dropdown-toggle').checked = false;" for="option-2" data-txt="Data science"></label>
+                  </div>
+                  <div title="Technical-Domain">
+                    <input id="option-3" name="option" type="radio">
+                    <label class="option" onclick="document.getElementById('dropdown-toggle').checked = false;" for="option-3" data-txt="Web Development"></label>
+                  </div>
+                  <div title="Technical-Domain">
+                    <input id="option-4" name="option" type="radio">
+                    <label class="option" onclick="document.getElementById('dropdown-toggle').checked = false;" for="option-4" data-txt="Cybersecurity"></label>
+                  </div>
+                  <div title="Non Tech">
+                    <input id="option-5" name="option" type="radio">
+                    <label class="option" onclick="document.getElementById('dropdown-toggle').checked = false;" for="option-5" data-txt="Editing"></label>
+                  </div>
+                  <div title="Non Tech">
+                    <input id="option-6" name="option" type="radio">
+                    <label class="option" onclick="document.getElementById('dropdown-toggle').checked = false;" for="option-6" data-txt="Cinematography"></label>
+                  </div>
+                  <div title="Non Tech">
+                    <input id="option-7" name="option" type="radio">
+                    <label class="option" onclick="document.getElementById('dropdown-toggle').checked = false;" for="option-7" data-txt="Filmmaking"></label>
+                  </div>
+                  <div title="Non Tech">
+                    <input id="option-8" name="option" type="radio">
+                    <label class="option" onclick="document.getElementById('dropdown-toggle').checked = false;" for="option-8" data-txt="Content Creation"></label>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-    <!--/ reg form end-->
+            <!-- available period -->
+            <div class="input-box">
+              <span class="details">Available Period</span>
+              <input type="text" placeholder="Enter Available Period" required="">
+            </div>
+            <!-- Fixed Online/Offline radio buttons -->
+            <div class="input-box">
+              <span class="details">Mode</span>
+              <div class="gender-details">
+                <input type="radio" name="mode" id="dot-1">
+                <input type="radio" name="mode" id="dot-2">
+                
+                <div class="category">
+                  <label for="dot-1">
+                    <span class="dot one"></span>
+                    <span class="gender">Online</span>
+                  </label>
+                  <label for="dot-2">
+                    <span class="dot two"></span>
+                    <span class="gender">Offline</span>
+                  </label>
+                </div>
+              </div>
+            </div>
           
           <!-- Submit button -->
           <div class="button">
@@ -350,6 +388,9 @@
       </div>
     </div>
   </div>
+
+<!--/ reg form end-->
+
 
   <!-- ======= Hero Section ======= -->
   <section >
