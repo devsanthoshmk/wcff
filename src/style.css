@@ -7,6 +7,34 @@ html {
   font-family: 'Unbounded', sans-serif;
 }
 
+/* Apply to the whole page or a specific element */
+.custom-scrollbar {
+  scrollbar-width: thin;             /* Firefox */
+  scrollbar-color: #ccc #ffffff;     /* Firefox: thumb color, track color */
+}
+
+/* For WebKit browsers: Chrome, Safari, Edge */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;                        /* width of vertical scrollbar */
+  height: 8px;                       /* height of horizontal scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #ffffff;               /* Track color */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cccccc;         /* Thumb color */
+  border-radius: 3px;                /* Rounded corners */
+  border: 2px solid #ffffff;         /* Padding around thumb */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #b3b3b3;         /* Darker on hover */
+}
+
+
+
 h1, h2, h3 {
   font-family: 'Unbounded', sans-serif;
 }
