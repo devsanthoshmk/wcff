@@ -25,7 +25,7 @@
                 <div class="flex gap-4">
                   <a v-for="social in socialLinks" 
                      :key="social.icon"
-                     href="#"
+                     :href="social.link"
                      class="p-3 bg-gray-50 rounded-full hover:bg-blue-50 hover:text-blue-600 transition-colors">
                     <i :class="social.icon + ' text-xl'"></i>
                   </a>
@@ -44,9 +44,8 @@
   import ContactInfo from '@/components/contact/ContactInfo.vue';
   
   const socialLinks = [
-    { icon: 'pi pi-facebook' },
-    { icon: 'pi pi-twitter' },
-    { icon: 'pi pi-instagram' },
-    { icon: 'pi pi-linkedin' }
+    { icon: 'pi pi-instagram',link: "https://www.instagram.com/webcraftersfoundation2025" },
+    { icon: 'pi pi-linkedin', link: "https://www.linkedin.com/company/web-crafters-foundation-llp/" },
+    { icon: 'pi pi-map-marker', link: 'https://maps.app.goo.gl/cFxUSos2UBT9xU1z7'}
   ];
   </script>

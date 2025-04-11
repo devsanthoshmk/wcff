@@ -2,7 +2,7 @@
   <main>
     <PageHeader
       title="About Us"
-      description="We're a team of passionate creators and innovators"
+      description="Delivering relevant, agile yet simple technological solutions for financial services providers"
     />
     
     <section class="py-16 bg-white">
@@ -11,7 +11,7 @@
           <div>
             <h2 class="text-3xl font-bold mb-6">Our Story</h2>
             <p class="text-gray-600 mb-4">
-              Founded in 2020, we've been at the forefront of digital innovation, helping businesses transform their online presence and achieve remarkable growth.
+              Founded in 2023, we've been at the forefront of digital innovation, helping businesses transform their online presence and achieve remarkable growth.
             </p>
             <p class="text-gray-600 mb-6">
               Our team combines creativity with technical expertise to deliver solutions that not only look great but drive real business results.
