@@ -56,6 +56,14 @@
 :root {
   scroll-behavior: smooth;
 }
+/* html- tag is the scroll wrapper */
+/* prevent scroll to impl vertical to horzontal scroll */ 
+:root {
+  height: 100%;
+  overflow: hidden;
+}
+
+
 
 /*--------------------------------------------------------------
 # General Styling & Shared Classes
@@ -64,6 +72,29 @@ body {
   color: var(--default-color);
   background-color: var(--background-color);
   font-family: var(--default-font);
+}
+/* body is the another scroll wrapper for the sections inside main and footer */
+.scroll-wrapper {   /*will add this to body*/
+  position: relative;
+  height: 100vh; /* Full viewport height */
+  overflow: hidden;
+}
+/* adding another div to wrap up the pannel to scroll vertically */
+.horizontal-scroll {
+  display: flex;
+  height: 100%;
+  width: 300vw; /* example: 3 panels = 300% of viewport width */
+  transition: transform 0.2s ease-out; /* basic animation transition */
+}
+
+/* ADDING PANNEL STYLES */
+.panel {
+  flex: 0 0 100vw; /* Each panel takes one viewport width */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* You can add individual styles and animations here */
 }
 
 a {
