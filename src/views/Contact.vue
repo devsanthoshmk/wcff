@@ -35,6 +35,7 @@
           </div>
         </div>
       </section>
+      <ctasection/>
     </main>
   </template>
   
@@ -42,6 +43,7 @@
   import PageHeader from '@/components/shared/PageHeader.vue';
   import ContactForm from '@/components/contact/ContactForm.vue';
   import ContactInfo from '@/components/contact/ContactInfo.vue';
+  import ctasection from '@/components/shared/CTASection.vue';
   
   const socialLinks = [
     { icon: 'pi pi-instagram',link: "https://www.instagram.com/webcraftersfoundation2025" },
