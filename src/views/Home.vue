@@ -40,7 +40,7 @@
           <img 
             src="/hero-img.svg"
             alt="Creative workspace"
-            class="rounded-2xl transform hover:scale-105 transition-transform duration-300"
+            class="p-[50px] rounded-2xl transform hover:scale-105 transition-transform duration-300"
           />
           <!-- Decorative Elements -->
           <div class="absolute -top-8 -right-8 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
@@ -84,8 +84,9 @@
       <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-3xl font-bold mb-6">Who We Are</h2>
-          <p class="text-gray-600 mb-8">
-            We're a team of passionate creators and innovators dedicated to transforming ideas into impactful digital solutions.
+          <p class="text-lg text-justify text-gray-600 mb-8">
+            WEB CRAFTERS FOUNDATION (WCFF) addresses a wide range of challenges in technology and security, providing innovative solutions to empower businesses and individuals.
+            In the realm of cybersecurity, the increasing threats such as malware attacks, phishing, ransomware, and data breaches pose significant risks. WCFF mitigates these risks by conducting cybersecurity awareness workshops, implementing advanced security solutions like firewalls and intrusion detection systems, and offering penetration testing services to identify and resolve security vulnerabilities. Website performance is another critical area where slow-loading websites and poor user interfaces lead to high bounce rates. WCFF tackles this by developing high-performance websites with optimized loading speed, responsive designs, and SEO techniques to improve visibility. Regular maintenance ensures seamless functionality across devices and browsers. 
           </p>
           <router-link to="/about">
             <Button label="Learn More" icon="pi pi-arrow-right" severity="secondary" class="p-button-rounded" />
@@ -95,30 +96,22 @@
           <img 
             src="/about-logo.svg"
             alt="Our team"
-            class="rounded-2xl transform hover:scale-105 transition-transform duration-300"
+            class="p-[100px] rounded-2xl transform hover:scale-105 transition-transform duration-300"
           />
         </div>
       </div>
     </section>
 
     <!-- CTA Section -->
-    <section id="contact" class="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-      <div class="container mx-auto px-4 text-center">
-        <h2 class="text-4xl font-bold mb-6">Ready to Start Your Project?</h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto">
-          Let's create something amazing together. Get in touch with our team today.
-        </p>
-        <router-link to="/contact">
-          <Button label="Contact Us" icon="pi pi-send" class="p-button-rounded p-button-lg p-button-outlined" />
-        </router-link>
-      </div>
-    </section>
+     <ctasection/>
+    
   </main>
 </template>
 
 <script setup>
 import ServiceCard from '@/components/services/ServiceCard.vue';
 import ProjectCard from '@/components/portfolio/ProjectCard.vue';
+import ctasection from '@/components/shared/CTASection.vue';
 import { services } from '@/data/services';
 import { projects } from '@/data/projects';
 

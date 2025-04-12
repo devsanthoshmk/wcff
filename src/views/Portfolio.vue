@@ -29,12 +29,14 @@
         </div>
       </div>
     </section>
+    <ctasection/>
   </main>
 </template>
 
 <script setup>
 import PageHeader from '@/components/shared/PageHeader.vue';
 import ProjectCard from '@/components/portfolio/ProjectCard.vue';
+import ctasection from '@/components/shared/CTASection.vue';
 import { projects } from '@/data/projects';
 
 const stats = [

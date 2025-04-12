@@ -17,22 +17,17 @@
     {
       icon: 'pi pi-map-marker',
       title: 'Visit Us',
-      content: '123 Creative Street, Design District, CA 90210'
+      content: 'CHENNAI,TAMILNADU || PUNE,MAHARASTRA'
     },
     {
       icon: 'pi pi-envelope',
       title: 'Email Us',
-      content: 'hello@creative-agency.com'
+      content: 'clientworkwcff@gmail.com'
     },
     {
       icon: 'pi pi-phone',
       title: 'Call Us',
       content: '+1 (555) 123-4567'
-    },
-    {
-      icon: 'pi pi-clock',
-      title: 'Working Hours',
-      content: 'Monday - Friday: 9:00 AM - 6:00 PM'
     }
   ];
   </script>
