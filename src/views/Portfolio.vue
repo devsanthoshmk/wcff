@@ -5,27 +5,28 @@
       description="Explore our latest projects and success stories"
     />
     
-    <section class="py-16">
-      <div class="container mx-auto px-4">
-        <!-- Project Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <ProjectCard
-            v-for="project in projects"
-            :key="project.title"
-            v-bind="project"
-          />
+    <section class="pb-16">
+      <!-- parent div to hold the timeline -->
+      <div class="relative h-[100vh] before:absolute before:left-1/2 before:-translate-x-1/2 before:w-[2px] before:bg-[#ccc] before:content-[''] before:top-2 before:bottom-2">
+        <!-- Content -->
+        <Tag icon="pi pi-calendar"  value="2020" severity="contrast" class="relative left-1/2 -translate-x-1/2 mt-4 text-lg px-4 py-2 h-10 [&_i.pi]:text-2xl" />
+        <div class="projects clear-both m-4 mr-12 p-4 relative w-[calc(50%-20px)]">
+          <h5>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, dolore.
+          </h5>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore officiis qui, non recusandae corrupti corporis velit repellat facilis quos quam nisi, itaque aperiam nostrum quae doloremque facere fugit quo! Sit dolore earum assumenda fugiat tempora distinctio nihil iusto rem fuga incidunt quam necessitatibus doloremque molestias vitae, commodi ipsum nemo expedita!</p>
         </div>
-
-        <!-- Stats Section -->
-        <div class="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div 
-            v-for="stat in stats" 
-            :key="stat.label"
-            class="text-center p-6 bg-white rounded-xl shadow-lg"
-          >
-            <div class="text-3xl font-bold text-blue-600 mb-2">{{ stat.value }}</div>
-            <div class="text-gray-600">{{ stat.label }}</div>
-          </div>
+        <div class="projects clear-both m-4 mr-12 p-4 relative w-[calc(50%-20px)]">
+          <h5>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, dolore.
+          </h5>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore officiis qui, non recusandae corrupti corporis velit repellat facilis quos quam nisi, itaque aperiam nostrum quae doloremque facere fugit quo! Sit dolore earum assumenda fugiat tempora distinctio nihil iusto rem fuga incidunt quam necessitatibus doloremque molestias vitae, commodi ipsum nemo expedita!</p>
+        </div>
+        <div class="projects clear-both m-4 mr-12 p-4 relative w-[calc(50%-20px)]">
+          <h5>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, dolore.
+          </h5>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore officiis qui, non recusandae corrupti corporis velit repellat facilis quos quam nisi, itaque aperiam nostrum quae doloremque facere fugit quo! Sit dolore earum assumenda fugiat tempora distinctio nihil iusto rem fuga incidunt quam necessitatibus doloremque molestias vitae, commodi ipsum nemo expedita!</p>
         </div>
       </div>
     </section>
@@ -33,11 +34,22 @@
   </main>
 </template>
 
+<style>
+  .projects:nth-of-type(2n) {
+        float: right;
+        margin: 1rem;
+        border-color: tan;
+    }
+</style>
+
 <script setup>
 import PageHeader from '@/components/shared/PageHeader.vue';
 import ProjectCard from '@/components/portfolio/ProjectCard.vue';
 import ctasection from '@/components/shared/CTASection.vue';
 import { projects } from '@/data/projects';
+
+
+import Tag from 'primevue/tag';
 
 const stats = [
   { value: '50+', label: 'Projects Delivered' },
