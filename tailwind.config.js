@@ -9,6 +9,14 @@ export default {
       fontFamily: {
         unbounded: ['Unbounded', 'sans-serif'], // Add the Unbounded font
       },
+      transitionDuration: {
+        '150': '150ms',
+        '300': '300ms',
+        '500': '500ms'
+      },
+      transitionDelay: {
+        '150': '150ms'
+      }
     },
   },
   plugins: [],

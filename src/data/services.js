@@ -1,4 +1,4 @@
-export const services = [
+export const tech_services = [
   {
     icon: 'pi pi-desktop',
     title: 'Web Design',
@@ -31,7 +31,9 @@ export const services = [
       'Visual Identity',
       'Brand Strategy'
     ]
-  },
+  }
+];
+export const nontech_services = [
   {
     icon: 'pi pi-chart-line',
     title: 'Digital Marketing',

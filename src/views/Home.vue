@@ -54,7 +54,7 @@
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <ServiceCard v-for="service in services.slice(0, 3)" :key="service.title" v-bind="service" />
+          <ServiceCard v-for="service in tech_services.slice(0, 3)" :key="service.title" v-bind="service" />
         </div>
         <div class="text-center mt-12">
           <router-link to="/services">
@@ -112,7 +112,7 @@
 import ServiceCard from '@/components/services/ServiceCard.vue';
 import ProjectCard from '@/components/portfolio/ProjectCard.vue';
 import ctasection from '@/components/shared/CTASection.vue';
-import { services } from '@/data/services';
+import { tech_services } from '@/data/services';
 import { projects } from '@/data/projects';
 
 const navigateToSection = (id) => {
