@@ -10,10 +10,15 @@ import 'primevue/resources/themes/lara-light-blue/theme.css';
 import 'primeicons/primeicons.css';
 import './style.css';
 
+import AnimateOnScroll from 'primevue/animateonscroll';
+
+
 const app = createApp(App);
 
 app.use(router);
 app.use(PrimeVue, { ripple: true });
+
+app.directive('animateonscroll', AnimateOnScroll);
 
 app.component('Button', Button);
 app.component('Card', Card);
