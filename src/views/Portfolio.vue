@@ -13,8 +13,7 @@
         <card
           v-for="(project, index) in projects"
           :key="index"
-          v-bind="project"
-          class="projects"/>
+          v-bind="project"/>
 
       </div>
     </section>
@@ -23,9 +22,11 @@
 </template>
 
 <style>
-  .projects:nth-of-type(2n) {
-      right: -50%;
-    }
+ 
+.projects:nth-of-type(2n)  .project {
+  right: -50%;
+}
+
 </style>
 
 <script setup>
