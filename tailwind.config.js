@@ -16,7 +16,7 @@ export default {
       },
       transitionDelay: {
         '150': '150ms'
-      }
+      },
     },
   },
   plugins: [],

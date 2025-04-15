@@ -12,12 +12,12 @@ import './style.css';
 
 import AnimateOnScroll from 'primevue/animateonscroll';
 
-
 const app = createApp(App);
 
 app.use(router);
 app.use(PrimeVue, { ripple: true });
 
+// Register AnimateOnScroll globally
 app.directive('animateonscroll', AnimateOnScroll);
 
 app.component('Button', Button);
