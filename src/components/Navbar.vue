@@ -1,14 +1,29 @@
 <template>
   <Menubar :model="items" class="border-none shadow-sm backdrop-blur-sm fixed w-full z-50">
     <template #start>
-      <router-link to="/" class="flex items-center gap-2 mr-4">
-        <span class="font-bold text-xl bg-black text-[#EBED9E] p-2 rounded transition-transform transform hover:scale-110">WCFF</span>
+      <router-link to="/" class="flex items-center gap-2 mr-4 font-bold text-xl bg-black text-white p-2 rounded transition-all duration-500 ease-in-out transform hover:scale-110">
+        <img src="/kyto-logo.png" alt="WCFF Logo" class="inline h-8 backdrop-contrast-200" />
+        <span class="inline">
+          WCFF
+        </span>
       </router-link>
+
     </template>
     <template #end>
       <router-link to="/contact">
-        <Button label="Contact Us" icon="pi pi-send" class="p-button-rounded bg-[#4745C9] text-white p-3 hover:bg-[#3633A2] transition-all" />
+        <Button 
+          label="Contact Us" 
+          icon="pi pi-send" 
+          class="rounded-l-lg bg-[#5A58E9] text-white p-3 hover:bg-[#4A46C1] transition-all" 
+        />
       </router-link>
+      <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+        <Button 
+          label="Apply Internship" 
+          icon="pi pi-briefcase" 
+          class="p-button-rounded-l ml-1 bg-[#5A58E9] text-white p-3 hover:bg-[#4A46C1] transition-all" 
+        />
+      </a>
     </template>
   </Menubar>
 </template>
