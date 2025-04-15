@@ -71,20 +71,22 @@ const cardRef = ref(null);
 const isVisible = ref(false);
 
 let observer = null;
-
-onMounted(() => {
-  // Create the observer instance
-  observer = new IntersectionObserver((entries) => {
+observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       // If the element is at least 10% visible, mark it as visible and stop observing.
       if (entry.isIntersecting) {
         isVisible.value = true;
-        observer.unobserve(entry.target);
+        // observer.unobserve(entry.target);
+      } else{
+        isVisible.value = false;
       }
     });
   }, {
     threshold: 0.9  // Adjust threshold as needed.
   });
+
+
+onMounted(() => {
   
   if (cardRef.value) {
     observer.observe(cardRef.value);
@@ -103,12 +105,15 @@ onUnmounted(() => {
 .card-wrapper {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  filter: blur(1px);
+  /* Optional: Add a transition for the blur effect */
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out, FILTER 0.6s linear;
 }
 
 /* When the card becomes visible, animate it */
 .animate-fade-in {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0px);
 }
 </style>
