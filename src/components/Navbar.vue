@@ -17,7 +17,7 @@
           class="rounded-l-lg bg-[#5A58E9] text-white p-3 hover:bg-[#4A46C1] transition-all" 
         />
       </router-link>
-      <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+      <a href="/internship/home/" target="_blank" rel="noopener noreferrer">
         <Button 
           label="Apply Internship" 
           icon="pi pi-briefcase" 
