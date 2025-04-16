@@ -24,7 +24,7 @@ async function handleNewsletterSubmit(event) {
   const formData = { email: email };
   try {
     // Show loading state
-    const submitButton = event.target.querySelector('input[type="submit"]');
+    const submitButton = event.target.querySelector('*[type="submit"]');
     const originalButtonValue = submitButton.value;
     submitButton.value = 'Submitting...';
     submitButton.disabled = true;
@@ -144,8 +144,8 @@ async function handleNewsletterSubmit(event) {
         
         // Reset the dropdown text displays
         document.querySelector('label[for="dropdown-toggle"] .selected-text').textContent = 'Select Domain';
-        document.querySelector('label[for="from-month-toggle"] .selected-text').textContent = 'From Month';
-        document.querySelector('label[for="to-month-toggle"] .selected-text').textContent = 'To Month';
+        document.querySelector('label[for="from-month-toggle"] .selected-text').textContent = 'From';
+        document.querySelector('label[for="to-month-toggle"] .selected-text').textContent = 'To';
         
         // Hide the registration form after successful submission
         setTimeout(() => {
