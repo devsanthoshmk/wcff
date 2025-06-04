@@ -15,7 +15,7 @@ async function sendMail(options) {
   // Setup mail options
   const mailOptions = {
     from: 'wcff.feedback@gmail.com',
-    to: 'sudo.mksantho.sh@gmail.com',
+    to: 'rockyraghav45@gmail.com',
     subject: `USER FEEDBACK: ${options.subject}`,
     replyTo: options.email, // So you can reply directly to the sender
     text: `
