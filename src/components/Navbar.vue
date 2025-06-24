@@ -10,29 +10,56 @@
 
     </template>
     <template #end>
-      <router-link to="/contact">
-        <Button 
-          label="Contact Us" 
-          icon="pi pi-send" 
-          class="rounded-l-lg bg-[#5A58E9] text-white p-3 hover:bg-[#4A46C1] transition-all" 
-        />
-      </router-link>
-      <a href="/internship/home/" target="_blank" rel="noopener noreferrer">
-        <Button 
-          label="Apply Internship" 
-          icon="pi pi-briefcase" 
-          class="p-button-rounded-l ml-1 bg-[#5A58E9] text-white p-3 hover:bg-[#4A46C1] transition-all" 
-        />
-      </a>
+      <div class="flex items-center gap-1 sm:gap-2">
+        <!-- Contact Us Button -->
+        <router-link to="/contact">
+          <Button 
+            :label="isSmallScreen ? '' : 'Contact Us'" 
+            icon="pi pi-send" 
+            class="rounded-lg bg-[#5A58E9] text-white hover:bg-[#4A46C1] transition-all text-xs sm:text-sm p-2 sm:p-3" 
+            :class="isSmallScreen ? 'p-button-icon-only' : ''"
+            :title="isSmallScreen ? 'Contact Us' : ''"
+          />
+        </router-link>
+        
+        <!-- Apply Internship Button -->
+        <a href="/internship/home/" target="_blank" rel="noopener noreferrer">
+          <Button 
+            :label="isSmallScreen ? '' : 'Apply Internship'" 
+            icon="pi pi-briefcase" 
+            class="rounded-lg bg-[#5A58E9] text-white hover:bg-[#4A46C1] transition-all text-xs sm:text-sm p-2 sm:p-3" 
+            :class="isSmallScreen ? 'p-button-icon-only' : ''"
+            :title="isSmallScreen ? 'Apply Internship' : ''"
+          />
+        </a>
+      </div>
     </template>
   </Menubar>
 </template>
 
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
+import { ref, onMounted, onUnmounted } from 'vue';
+
 
 const route = useRoute();
 const router = useRouter();
+const isSmallScreen = ref(false);
+
+const checkScreenSize = () => {
+  isSmallScreen.value = window.innerWidth < 640; // Tailwind's sm breakpoint
+};
+
+onMounted(() => {
+  checkScreenSize();
+  window.addEventListener('resize', checkScreenSize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkScreenSize);
+});
+
+
 
 const handleNavigation = (id) => {
   if (route.path === '/') {

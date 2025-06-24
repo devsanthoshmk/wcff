@@ -28,8 +28,8 @@
             />
             <!-- "Our Work" Button with #5A58E9 Background -->
             <Button 
-              @click="navigateToSection('portfolio')" 
-              label="Our Work" 
+              @click="navigateToSection('about')" 
+              label="About Us" 
               icon="pi pi-images" 
               class="p-button-rounded p-button-lg custom-our-work"
             />
