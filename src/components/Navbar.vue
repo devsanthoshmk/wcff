@@ -91,9 +91,9 @@ const items = [
     class: 'relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[3px] after:bg-[#5A58E9] after:transition-all hover:after:w-full'
   },
   {
-    label: 'Portfolio',
+    label: 'Features',
     icon: 'pi pi-images',
-    command: () => route.path === '/' ? handleNavigation('portfolio') : router.push('/portfolio'),
+    command: () => route.path === '/' ? handleNavigation('features') : router.push('/'),
     class: 'relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[3px] after:bg-[#5A58E9] after:transition-all hover:after:w-full'
   },
   {

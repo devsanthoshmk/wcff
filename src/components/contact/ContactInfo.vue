@@ -27,7 +27,7 @@
     {
       icon: 'pi pi-phone',
       title: 'Call Us',
-      content: '+1 (555) 123-4567'
+      content: '+91 7904007861'
     }
   ];
   </script>

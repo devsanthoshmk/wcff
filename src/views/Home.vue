@@ -65,7 +65,7 @@
     </section>
 
     <!-- Portfolio Preview -->
-    <section id="portfolio" class="py-20 bg-gray-50">
+    <!-- <section id="portfolio" class="py-20 bg-gray-50">
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12">Featured Projects</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -77,10 +77,16 @@
           </router-link>
         </div>
       </div>
-    </section>
+    </section> -->
 
+    <!-- brand slider -->
+     <div id="features" class="py-20 bg-white">
+      <BrandSlider />
+
+      
+     </div>
     <!-- About Preview -->
-    <section id="about" class="py-20 bg-white">
+    <section id="about" class="bg-white">
       <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-3xl font-bold mb-6">Who We Are</h2>
@@ -96,7 +102,7 @@
           <img 
             src="/about-logo.svg"
             alt="Our team"
-            class="p-[100px] rounded-2xl transform hover:scale-105 transition-transform duration-300"
+            class="lg:p-[100px] rounded-2xl transform hover:scale-105 transition-transform duration-300"
           />
         </div>
       </div>
@@ -114,6 +120,9 @@ import ProjectCard from '@/components/portfolio/ProjectCard.vue';
 import ctasection from '@/components/shared/CTASection.vue';
 import { tech_services } from '@/data/services';
 import { projects } from '@/data/projects';
+
+import BrandSlider from '@/components/BrandSlider.vue'
+
 
 const navigateToSection = (id) => {
   const element = document.getElementById(id);

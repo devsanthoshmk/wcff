@@ -34,7 +34,7 @@
               <router-link to="/about" class="hover:text-blue-400 transition-colors">About Us</router-link>
             </li>
             <li>
-              <router-link to="/portfolio" class="hover:text-blue-400 transition-colors">Portfolio</router-link>
+              <router-link to="/features" class="hover:text-blue-400 transition-colors">Features</router-link>
             </li>
             <li>
               <router-link to="/about#careers" class="hover:text-blue-400 transition-colors">Careers</router-link>

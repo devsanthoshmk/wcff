@@ -1,70 +1,94 @@
 export const tech_services = [
   {
     icon: 'pi pi-desktop',
-    title: 'Web Design',
-    description: 'Create stunning, user-friendly websites that leave a lasting impression.',
+    title: 'Web Development',
+    description: 'Build responsive, performant websites that provide a great user experience across devices.',
     features: [
       'Responsive Design',
-      'UI/UX Design',
-      'Mobile-First Approach',
+      'Frontend Frameworks (Vue, React, etc.)',
+      'Backend Integration (APIs, Databases)',
       'Performance Optimization'
     ]
   },
   {
-    icon: 'pi pi-code',
-    title: 'Development',
-    description: 'Build robust web applications with cutting-edge technologies.',
+    icon: 'pi pi-shield',
+    title: 'Cybersecurity',
+    description: 'Protect your digital assets with comprehensive security assessments and solutions.',
     features: [
-      'Full-Stack Development',
-      'Custom Solutions',
-      'API Integration',
-      'Cloud Deployment'
+      'Vulnerability Assessment',
+      'Penetration Testing',
+      'Security Audits & Compliance',
+      'Incident Response & Monitoring'
     ]
   },
   {
-    icon: 'pi pi-palette',
-    title: 'Branding',
-    description: 'Develop a strong brand identity that resonates with your audience.',
+    icon: 'pi pi-cog',
+    title: 'AI Services',
+    description: 'Leverage artificial intelligence and machine learning to drive intelligent automation and insights.',
     features: [
-      'Logo Design',
-      'Brand Guidelines',
-      'Visual Identity',
-      'Brand Strategy'
+      'Machine Learning Model Development',
+      'Natural Language Processing (NLP)',
+      'Computer Vision Solutions',
+      'Predictive Analytics & Data Modeling'
+    ]
+  },
+  {
+    icon: 'pi pi-database',
+    title: 'Data Science',
+    description: 'Harness data to drive insights and informed decision-making through advanced analytics.',
+    features: [
+      'Data Cleaning & Preprocessing',
+      'Statistical Analysis & Modeling',
+      'Data Visualization & Reporting',
+      'Predictive Analytics & Machine Learning'
     ]
   }
+  
 ];
+
 export const nontech_services = [
+  {
+    icon: 'pi pi-pencil',
+    title: 'Content Creation',
+    description: 'Craft engaging, high-quality content tailored to your audience and brand voice.',
+    features: [
+      'Blog & Article Writing',
+      'Copywriting for Websites & Ads',
+      'Scriptwriting & Storyboarding',
+      'Social Media Content'
+    ]
+  },
   {
     icon: 'pi pi-chart-line',
     title: 'Digital Marketing',
-    description: 'Drive growth with data-driven digital marketing strategies.',
+    description: 'Drive growth and visibility through data-driven marketing strategies.',
     features: [
       'SEO Optimization',
-      'Content Marketing',
-      'Social Media',
-      'Analytics & Reporting'
+      'Social Media Campaigns',
+      'Email Marketing',
+      'Analytics & Performance Reporting'
     ]
   },
   {
-    icon: 'pi pi-mobile',
-    title: 'App Development',
-    description: 'Create powerful mobile applications for iOS and Android.',
+    icon: 'pi pi-pencil', // you can reuse pencil or choose another relevant icon if you have one
+    title: 'Editing Services',
+    description: 'Polish your content—text, audio, or video—to professional quality standards.',
     features: [
-      'Native Development',
-      'Cross-Platform Apps',
-      'UI/UX Design',
-      'App Store Optimization'
+      'Copy Editing & Proofreading',
+      'Video Editing & Post-production',
+      'Audio Editing & Enhancement',
+      'Consistency & Style Checks'
     ]
   },
   {
-    icon: 'pi pi-cloud',
-    title: 'Cloud Solutions',
-    description: 'Leverage cloud technology to scale your business efficiently.',
+    icon: 'pi pi-video',
+    title: 'Film Making',
+    description: 'End-to-end film production services, from pre-production through post-production.',
     features: [
-      'Cloud Migration',
-      'AWS/Azure Services',
-      'DevOps',
-      'Security & Compliance'
+      'Concept Development & Storyboarding',
+      'Scripting & Casting',
+      'Shooting & Direction',
+      'Editing, Color Grading & Final Delivery'
     ]
   }
 ];
