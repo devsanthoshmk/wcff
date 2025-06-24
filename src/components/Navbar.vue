@@ -23,7 +23,7 @@
         </router-link>
         
         <!-- Apply Internship Button -->
-        <a href="/internship/home/" target="_blank" rel="noopener noreferrer">
+        <a href="/internship/registration/" target="_blank" rel="noopener noreferrer">
           <Button 
             :label="isSmallScreen ? '' : 'Apply Internship'" 
             icon="pi pi-briefcase" 

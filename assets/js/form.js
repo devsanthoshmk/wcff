@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         subject: document.getElementById('subject-field').value,
         message: document.getElementById('message-field').value
       };
-      
+      console.log(formData)
       // Send the data to your backend API
       fetch('http://localhost:3000/api/send-email', {
         method: 'POST',
