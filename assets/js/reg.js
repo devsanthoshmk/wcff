@@ -31,28 +31,23 @@ async function handleNewsletterSubmit(event) {
     submitButton.value = 'Submitting...';
     submitButton.disabled = true;
     // Send the data to the API
-    const response = await fetch('http://localhost:3000/api/newsletter', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    });
+
     // Parse the response
-    const result = await response.json();
-    // Reset button state
+    const { data, error } = await supabase
+    .from('newsletter')
+    .insert([ formData ]);
+
+     // Reset button state
     submitButton.value = originalButtonValue;
     submitButton.disabled = false;
     // Handle the response
-    if (response.ok) {
-      // Show success message
-      showMessage('Subscription successful!', 'success');
-      // Reset the form
-      event.target.reset();
+    if (error) {
+      console.error('Supabase insert error:', error);
+      showMessage(error.message || 'Subscription failed. Please try again.', 'error');
     } else {
-      // Show error message
-      showMessage(result.error || 'Subscription failed. Please try again.', 'error');
+      showMessage('Subscribed successfully!', 'success');
     }
+    
   } catch (error) {
     console.error('Error submitting form:', error);
     showMessage('An error occurred. Please check your connection and try again.', 'error');
