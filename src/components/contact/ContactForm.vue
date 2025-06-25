@@ -117,14 +117,15 @@
 import { reactive, ref } from 'vue';
 
 const formState = ref('idle'); // Four states: 'idle', 'loading', 'success', 'error'
-const apiUrl = 'http://localhost:3000/api/send-email/';
+const apiUrl = '/.netlify/functions/mail';
 
 const form = reactive({
-  firstName: '',
-  lastName: '',
+  name: '',
   email: '',
+  subject: '',
   message: ''
 });
+
 
 const resetForm = () => {
   form.name = '';
