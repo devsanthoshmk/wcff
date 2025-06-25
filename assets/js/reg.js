@@ -1,3 +1,5 @@
+const apiUrl = '/.netlify/functions/reg-data';
+
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
 // for newsletter
@@ -112,43 +114,46 @@ async function handleNewsletterSubmit(event) {
     };
     
     try {
-      // Show loading state
       const submitButton = document.querySelector('.button input[type="submit"]');
       const originalButtonValue = submitButton.value;
       submitButton.value = 'Submitting...';
       submitButton.disabled = true;
-
-      const { data, error } = await supabase
-      .from('applications')
-      .insert([ formData ]);
-
-    // Reset button state
-    submitButton.value = originalButtonValue;
-    submitButton.disabled = false;
-
-    if (error) {
-      console.error('Supabase insert error:', error);
-      showMessage(error.message || 'Registration failed. Please try again.', 'error');
-      return;
+  
+      const res = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+  
+      const resData = await res.json(); // <- Only call this once
+  
+      // Reset button state
+      submitButton.value = originalButtonValue;
+      submitButton.disabled = false;
+  
+      if (!res.ok) {
+        console.error('Server error:', resData);
+        showMessage(resData.error || 'Registration failed. Please try again.', 'error');
+        return;
+      }
+  
+      // Success
+      showMessage('Registration successful!', 'success');
+      registrationForm.reset();
+      document.querySelector('label[for="dropdown-toggle"] .selected-text').textContent = 'Select Domain';
+      document.querySelector('label[for="from-month-toggle"] .selected-text').textContent = 'From';
+      document.querySelector('label[for="to-month-toggle"] .selected-text').textContent = 'To';
+      setTimeout(hideRegistrationForm, 2000);
+  
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      showMessage('An error occurred.', 'error');
+  
+      // Always reset button on error
+      const submitButton = document.querySelector('.button input[type="submit"]');
+      submitButton.value = 'Submit';
+      submitButton.disabled = false;
     }
-
-    // Success!
-    showMessage('Registration successful!', 'success');
-    registrationForm.reset();
-    document.querySelector('label[for="dropdown-toggle"] .selected-text').textContent = 'Select Domain';
-    document.querySelector('label[for="from-month-toggle"] .selected-text').textContent = 'From';
-    document.querySelector('label[for="to-month-toggle"] .selected-text').textContent = 'To';
-
-    setTimeout(hideRegistrationForm, 2000);
-
-  } catch (err) {
-    console.error('Unexpected error:', err);
-    showMessage('An error occurred. Please check your connection and try again.', 'error');
-
-    // Reset button
-    submitButton.value = originalButtonValue;
-    submitButton.disabled = false;
-  }
 
   }
   

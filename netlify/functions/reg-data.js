@@ -1,0 +1,124 @@
+import nodemailer from 'nodemailer'
+import { createClient } from '@supabase/supabase-js'
+
+const SUPABASE_URL = 'https://msqgqddktvaoadeiecpa.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zcWdxZGRrdHZhb2FkZWllY3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwMTI2MTQsImV4cCI6MjA1OTU4ODYxNH0.yyszmKkxSM7I9DruWv-JruyR9wBfgHg2zAF7y1pnDUI';
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Create transporter using your Gmail account
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: "wcff.feedback@gmail.com",       // wcff.feedback@gmail.com
+    pass: "dovq fkbi mqfb evxv"   // your Gmail App Password
+  }
+})
+
+// Helper to send mail
+const sendMail = (options) => {
+  const mailOptions = {
+    from: "wcff.feedback@gmail.com",
+    to: options.email, // rockyraghav45@gmail.com
+    subject: `Thank You for Registering for the WCFF Internship`,
+    replyTo: options.email,
+      text: `Hi ${options.name}`,
+    html: `<div style="background-color: #eef4fb; padding: 24px; border-radius: 10px; font-family: Arial, sans-serif; color: #1a1a1a;">
+  <h2 style="color: #1d3557;">Hello ${options.name},</h2>
+  <p>Thank you for registering for the <strong>WCFF Internship</strong>.</p>
+  <p>We’re currently reviewing your application and checking availability for the <strong>${options.domain}</strong> domain during the <strong>${options.available_period}</strong> period.</p>
+  <p>We’ll be in touch soon with further updates. We look forward to having you on board!</p>
+  <p style="margin-top: 20px;">Best regards,<br><strong style="color: #1d3557;">WCFF Internship Team</strong></p>
+</div>
+
+    `
+  }
+
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.error('Email sending error:', err)
+        reject(err)
+      } else {
+        console.log('Email sent successfully:', info.response)
+        resolve(info)
+      }
+    })
+  })
+}
+
+// Netlify Function entry point
+export async function handler(event, context) {
+    if (event.httpMethod !== 'POST') {
+      return {
+        statusCode: 405,
+        body: JSON.stringify({ error: 'Method Not Allowed' })
+      };
+    }
+  
+    let payload;
+    try {
+      payload = JSON.parse(event.body);
+    } catch {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Invalid JSON' })
+      };
+    }
+  
+    const { name, mobile_number, email, domain, available_period, mode } = payload;
+  
+    if (!name || !mobile_number || !email || !domain || !available_period || !mode) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'All fields are required' })
+      };
+    }
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Invalid email format' })
+      };
+    }
+  
+    if (mode !== 'online' && mode !== 'offline') {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Mode must be either "online" or "offline"' })
+      };
+    }
+  
+    let ismailed = false;
+    try {
+      await sendMail(payload);
+      ismailed = true;
+    } catch (err) {
+      console.error("Email sending failed:", err);
+      ismailed = false;
+    }
+  
+    const { data, error } = await supabase
+      .from('applications')
+      .insert([payload]);
+  
+    if (error) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: error.message || 'Database error' })
+      };
+    }
+  
+    if (!ismailed) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ error: 'Registration saved, but email failed.' })
+      };
+    }
+  
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Registration and email successful.' })
+    };
+  }
+  
