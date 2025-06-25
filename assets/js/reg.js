@@ -117,52 +117,39 @@ async function handleNewsletterSubmit(event) {
       const originalButtonValue = submitButton.value;
       submitButton.value = 'Submitting...';
       submitButton.disabled = true;
-      
-      // Send the data to the API
-      const response = await fetch('http://localhost:3000/api/applications', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-      
-      // Parse the response
-      const result = await response.json();
-      
-      // Reset button state
-      submitButton.value = originalButtonValue;
-      submitButton.disabled = false;
-      
-      // Handle the response
-      if (response.ok) {
-        // Show success message
-        showMessage('Registration successful!', 'success');
-        
-        // Reset the form
-        registrationForm.reset();
-        
-        // Reset the dropdown text displays
-        document.querySelector('label[for="dropdown-toggle"] .selected-text').textContent = 'Select Domain';
-        document.querySelector('label[for="from-month-toggle"] .selected-text').textContent = 'From';
-        document.querySelector('label[for="to-month-toggle"] .selected-text').textContent = 'To';
-        
-        // Hide the registration form after successful submission
-        setTimeout(() => {
-          hideRegistrationForm();
-        }, 2000);
-      } else {
-        // Show error message
-        showMessage(result.error || 'Registration failed. Please try again.', 'error');
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      showMessage('An error occurred. Please check your connection and try again.', 'error');
-      
-      // Reset button
-      document.querySelector('.button input[type="submit"]').value = originalButtonValue;
-      document.querySelector('.button input[type="submit"]').disabled = false;
+
+      const { data, error } = await supabase
+      .from('applications')
+      .insert([ formData ]);
+
+    // Reset button state
+    submitButton.value = originalButtonValue;
+    submitButton.disabled = false;
+
+    if (error) {
+      console.error('Supabase insert error:', error);
+      showMessage(error.message || 'Registration failed. Please try again.', 'error');
+      return;
     }
+
+    // Success!
+    showMessage('Registration successful!', 'success');
+    registrationForm.reset();
+    document.querySelector('label[for="dropdown-toggle"] .selected-text').textContent = 'Select Domain';
+    document.querySelector('label[for="from-month-toggle"] .selected-text').textContent = 'From';
+    document.querySelector('label[for="to-month-toggle"] .selected-text').textContent = 'To';
+
+    setTimeout(hideRegistrationForm, 2000);
+
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    showMessage('An error occurred. Please check your connection and try again.', 'error');
+
+    // Reset button
+    submitButton.value = originalButtonValue;
+    submitButton.disabled = false;
+  }
+
   }
   
   // Form validation function
