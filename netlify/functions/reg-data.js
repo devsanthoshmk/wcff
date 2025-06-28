@@ -21,11 +21,25 @@ const sendMail = (options) => {
     to: options.email, // rockyraghav45@gmail.com
     subject: `Thank You for Registering for the WCFF Internship`,
     replyTo: options.email,
-      text: `Hi ${options.name}`,
+      text: `
+Hi ${options.name},
+
+Thank you for registering for the WCFF Internship.
+
+We’re currently reviewing your application and checking availability for the ${options.domain} domain during the ${options.available_period} period.
+
+Please attach your resume (PDF) named in the format: ${options.name}-${options.college}.pdf
+
+We’ll be in touch soon with further updates. We look forward to having you on board!
+
+Best regards,
+WCFF Internship Team
+    `,
     html: `<div style="background-color: #eef4fb; padding: 24px; border-radius: 10px; font-family: Arial, sans-serif; color: #1a1a1a;">
   <h2 style="color: #1d3557;">Hello ${options.name},</h2>
   <p>Thank you for registering for the <strong>WCFF Internship</strong>.</p>
   <p>We’re currently reviewing your application and checking availability for the <strong>${options.domain}</strong> domain during the <strong>${options.available_period}</strong> period.</p>
+  <p><strong>Please attach your resume (PDF) named as <code>name-college.pdf</code>.</strong></p>
   <p>We’ll be in touch soon with further updates. We look forward to having you on board!</p>
   <p style="margin-top: 20px;">Best regards,<br><strong style="color: #1d3557;">WCFF Internship Team</strong></p>
 </div>
