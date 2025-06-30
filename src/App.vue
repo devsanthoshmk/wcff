@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-    <Navbar />
+    <Navbar :about_intern="about_route" />
     <router-view></router-view>
     <Footer />
   </div>
@@ -9,4 +9,14 @@
 <script setup>
 import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
+import { useRoute } from 'vue-router';
+import { computed } from 'vue';
+
+
+const route = useRoute();
+const about_route = computed(() => 
+  route.matched.some(r => r.name === 'InternshipRegister')
+);
+console.log(computed(() => 
+route.matched.some(r => r.name === 'InternshipRegister')))
 </script>

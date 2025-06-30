@@ -23,7 +23,7 @@
         </router-link>
         
         <!-- Apply Internship Button -->
-        <a href="/internship/registration/" target="_blank" rel="noopener noreferrer">
+        <a href="/internship/register/" target="_blank" rel="noopener noreferrer">
           <Button 
             :label="isSmallScreen ? '' : 'Apply Internship'" 
             icon="pi pi-briefcase" 
@@ -40,6 +40,14 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { ref, onMounted, onUnmounted } from 'vue';
+import { defineProps,computed } from 'vue'
+
+const props = defineProps({
+  about_intern : {
+    type: Boolean,
+    default: false
+  }
+})
 
 
 const route = useRoute();
@@ -77,7 +85,7 @@ const handleNavigation = (id) => {
   }
 };
 
-const items = [
+const items = computed(() => [
   {
     label: 'Home',
     icon: 'pi pi-home',
@@ -96,11 +104,19 @@ const items = [
     command: () => route.path === '/' ? handleNavigation('features') : router.push('/'),
     class: 'relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[3px] after:bg-[#5A58E9] after:transition-all hover:after:w-full'
   },
-  {
-    label: 'About',
-    icon: 'pi pi-users',
-    command: () => route.path === '/' ? handleNavigation('about') : router.push('/about'),
-    class: 'relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[3px] after:bg-[#5A58E9] after:transition-all hover:after:w-full'
-  }
-];
+  props.about_intern
+    ? {
+        label: 'About Internship',
+        icon: 'pi pi-users',
+        command: () => router.push('/internship'),
+        class: 'relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[3px] after:bg-[#5A58E9] after:transition-all hover:after:w-full'
+      }
+    : {
+        label: 'About',
+        icon: 'pi pi-users',
+        command: () => route.path === '/' ? handleNavigation('about') : router.push('/about'),
+        class: 'relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[3px] after:bg-[#5A58E9] after:transition-all hover:after:w-full'
+      }
+]);
+console.log(props.about_intern)
 </script>

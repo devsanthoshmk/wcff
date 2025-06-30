@@ -70,7 +70,8 @@ export async function handler(event, context) {
     }
   
     let payload;
-    try {
+  try {
+      console.log('Received event:', event);
       payload = JSON.parse(event.body);
     } catch {
       return {
@@ -79,13 +80,38 @@ export async function handler(event, context) {
       };
     }
   
-    const { name, mobile_number, email, domain, available_period, mode } = payload;
+    const {
+      name,
+      email,
+      mobile_number,
+      college,
+      domain,
+      department,
+      available_period,
+      mode,
+      certificate_type,
+      payment_screenshot,
+  } = payload
   
-    if (!name || !mobile_number || !email || !domain || !available_period || !mode) {
+  console.log('Received payload:', payload,);
+  
+    // Basic validation
+    if (
+      !name ||
+      !email ||
+      !mobile_number ||
+      !college ||
+      !domain ||
+      !department ||
+      !available_period ||
+      !mode ||
+      !certificate_type ||
+      !payment_screenshot
+    ) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: 'All fields are required' })
-      };
+        body: JSON.stringify({ error: 'All fields are required.' })
+      }
     }
   
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -136,3 +162,5 @@ export async function handler(event, context) {
     };
   }
   
+
+

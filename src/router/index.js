@@ -29,6 +29,23 @@ const router = createRouter({
       name: 'Contact',
       component: () => import('@/views/Contact.vue'),
     },
+    {
+      path: '/internship/register',
+      name: 'InternshipRegister',
+      component: () => import('@/views/InternshipForm.vue'),
+      meta: {
+        title: 'Internship Program - WCFF'
+      }
+    },
+    {
+      path: '/internship',
+      name: 'Internship',
+      component: () => import('@/views/Internship.vue'),
+      meta: {
+        title: 'Internship Program - WCFF'
+      }
+    }
+    
   ],
   scrollBehavior(to, from, savedPosition) {
     // If there's a saved scroll position (back/forward navigation), restore it

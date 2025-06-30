@@ -1,3 +1,264 @@
+Subject: add a about internship page route (/internship/about)
+
+Background:
+
+Site: Built with Vue 3 (uses modern component structure, Vue Router, shared theme/fonts).
+
+Goal:
+create a about internship page in vuejs using taildwind css use the same design patterns and styles to make it feel like a route in a same page 
+
+Deliverables:
+
+a @views/InternshipAbout.vue page code with a instructions to add it in my code base
+
+What I’ll Provide:
+
+The current Vue 3 home route code.
+
+content for that about you can add image if there is free img available and needed make sure it matches my website theme and structure and style these are more important
+
+my vue versions:
+    "@vueuse/core": "^10.9.0",
+    "nodemailer": "^7.0.3",
+    "primeicons": "^6.0.1",
+    "primevue": "^3.50.0",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
+
+1. site A home page code:
+
+@/views/home.vue:
+
+<template>
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center relative overflow-hidden">
+      <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-8 pt-8 md:mt-0 md:pt-4">
+        <!-- Left Content -->
+        <div class="text-left">
+          <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600" style="line-height: 1.25!important;">
+            We Create <span class="relative">
+              <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                Digital
+              </span>
+              <span 
+                class="absolute left-0 -bottom-2 w-full h-2 bg-[#f9ff00] rounded-md"
+              ></span>
+            </span> Experiences
+          </h1>
+          <p class="text-xl text-gray-600 mb-8">
+            Transform your brand with cutting-edge web solutions that captivate and convert.
+          </p>
+          <div class="flex gap-4">
+            <!-- "Get Started" Button with #EBED9E Background -->
+            <Button 
+              @click="navigateToSection('services')" 
+              label="Get Started" 
+              icon="pi pi-arrow-right" 
+              class="p-button-rounded p-button-lg custom-get-started"
+            />
+            <!-- "Our Work" Button with #5A58E9 Background -->
+            <Button 
+              @click="navigateToSection('about')" 
+              label="About Us" 
+              icon="pi pi-images" 
+              class="p-button-rounded p-button-lg custom-our-work"
+            />
+          </div>
+        </div>
+        <!-- Right Illustration -->
+        <div class="relative">
+          <img 
+            src="/hero-img.svg"
+            alt="Creative workspace"
+            class="p-[50px] rounded-2xl transform hover:scale-105 transition-transform duration-300"
+          />
+          <!-- Decorative Elements -->
+          <div class="absolute -top-8 -right-8 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+          <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl"></div>
+        </div>
+      </div>
+    </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <ServiceCard v-for="service in tech_services.slice(0, 3)" :key="service.title" v-bind="service" />
+        </div>
+        <div class="text-center mt-12">
+          <router-link to="/services">
+            <Button label="View All Services" icon="pi pi-arrow-right" severity="secondary" class="p-button-rounded" />
+          </router-link>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Preview -->
+    <!-- <section id="portfolio" class="py-20 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Featured Projects</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <ProjectCard v-for="project in projects.slice(0, 3)" :key="project.title" v-bind="project" />
+        </div>
+        <div class="text-center mt-12">
+          <router-link to="/portfolio">
+            <Button label="View All Projects" icon="pi pi-arrow-right" severity="secondary" class="p-button-rounded" />
+          </router-link>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- brand slider -->
+     <div id="features" class="py-20 bg-white">
+      <BrandSlider />
+
+      
+     </div>
+    <!-- About Preview -->
+    <section id="about" class="bg-white">
+      <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Who We Are</h2>
+          <p class="text-lg text-justify text-gray-600 mb-8">
+            WEB CRAFTERS FOUNDATION (WCFF) addresses a wide range of challenges in technology and security, providing innovative solutions to empower businesses and individuals.
+            In the realm of cybersecurity, the increasing threats such as malware attacks, phishing, ransomware, and data breaches pose significant risks. WCFF mitigates these risks by conducting cybersecurity awareness workshops, implementing advanced security solutions like firewalls and intrusion detection systems, and offering penetration testing services to identify and resolve security vulnerabilities. Website performance is another critical area where slow-loading websites and poor user interfaces lead to high bounce rates. WCFF tackles this by developing high-performance websites with optimized loading speed, responsive designs, and SEO techniques to improve visibility. Regular maintenance ensures seamless functionality across devices and browsers. 
+          </p>
+          <router-link to="/about">
+            <Button label="Learn More" icon="pi pi-arrow-right" severity="secondary" class="p-button-rounded" />
+          </router-link>
+        </div>
+        <div class="relative">
+          <img 
+            src="/about-logo.svg"
+            alt="Our team"
+            class="lg:p-[100px] rounded-2xl transform hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+     <ctasection/>
+    
+  </main>
+</template>
+
+<script setup>
+import ServiceCard from '@/components/services/ServiceCard.vue';
+import ProjectCard from '@/components/portfolio/ProjectCard.vue';
+import ctasection from '@/components/shared/CTASection.vue';
+import { tech_services } from '@/data/services';
+import { projects } from '@/data/projects';
+
+import BrandSlider from '@/components/BrandSlider.vue'
+
+
+const navigateToSection = (id) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+</script>
+
+<style scoped>
+/* Custom "Get Started" Button */
+.custom-get-started {
+  background-color: #EBED9E !important;
+  color: #000 !important;
+  border: none !important;
+  width: 140px;
+  height: 40px;
+  padding: 8px 10px;
+}
+
+.custom-get-started:hover {
+  background-color: #f2ff00 !important; /* Slightly darker shade for hover */
+}
+
+/* Custom "Our Work" Button */
+.custom-our-work {
+  background-color: #5A58E9 !important;
+  color: #fff !important;
+  border: none !important;
+  width: 140px;
+  height: 40px;
+  padding: 8px 15px;
+}
+
+.custom-our-work:hover {
+  background-color: #4745C9 !important; /* Slightly darker shade for hover */
+}
+</style>
+
+./styles.css:
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Unbounded', sans-serif;
+}
+
+/* Apply to the whole page or a specific element */
+.custom-scrollbar {
+  scrollbar-width: thin;             /* Firefox */
+  scrollbar-color: #ccc #ffffff;     /* Firefox: thumb color, track color */
+}
+
+/* For WebKit browsers: Chrome, Safari, Edge */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;                        /* width of vertical scrollbar */
+  height: 8px;                       /* height of horizontal scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #ffffff;               /* Track color */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cccccc;         /* Thumb color */
+  border-radius: 3px;                /* Rounded corners */
+  border: 2px solid #ffffff;         /* Padding around thumb */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #b3b3b3;         /* Darker on hover */
+}
+
+
+
+h1, h2, h3 {
+  font-family: 'Unbounded', sans-serif;
+}
+
+.p-menubar {
+  padding: 1rem;
+}
+
+.p-card {
+  border-radius: 1rem;
+  transition: transform 0.2s;
+}
+
+.p-card-title, .p-card-caption, .p-menubar-start, .p-menubar-end, .footer-logo {
+  font-family: 'Unbounded', sans-serif;
+}
+
+.p-card:hover {
+  transform: translateY(-5px);
+}
+
+.bg-yellow\/80 {
+  background-color: #EBED9E;
+}
+
+
+2. site B code:
+
 <!DOCTYPE html>
 <html lang="en">
 
