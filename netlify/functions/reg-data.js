@@ -1,10 +1,12 @@
 import nodemailer from 'nodemailer'
 import { createClient } from '@supabase/supabase-js'
-
+const SUPABASE_SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zcWdxZGRrdHZhb2FkZWllY3BhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NDAxMjYxNCwiZXhwIjoyMDU5NTg4NjE0fQ.6BOG1mtQ-NcJ_7g_p2kTq6di1aspmoOfFiiH6eXk2G0";
 const SUPABASE_URL = 'https://msqgqddktvaoadeiecpa.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zcWdxZGRrdHZhb2FkZWllY3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwMTI2MTQsImV4cCI6MjA1OTU4ODYxNH0.yyszmKkxSM7I9DruWv-JruyR9wBfgHg2zAF7y1pnDUI';
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_SERVICE_ROLE_KEY
+);
 // Create transporter using your Gmail account
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -69,10 +71,10 @@ export async function handler(event, context) {
       };
     }
 
-    let payload, update_form;
+    let payload, update_form, filename;
   try {
       console.log('Received event:', event);
-     ({payload, update_form} = JSON.parse(event.body));
+     ({payload, update_form, filename} = JSON.parse(event.body));
     } catch {
       return {
         statusCode: 400,
@@ -151,9 +153,17 @@ export async function handler(event, context) {
     
   }
   
-    if (error) {
+  if (error) {
+    if (filename!=='') {
+        // Delete the file
+        const { data, error } = await supabase.storage
+        .from('payment-screenshot')
+        .remove(filename);
+        
+        if (error) { console.error('Error deleting file:', error); }
+      }
       return {
-        statusCode: Number(error.code) || 500 ,
+        statusCode: 500 ,
         body: JSON.stringify({ error: error.message || 'Database error' })
       };
     }

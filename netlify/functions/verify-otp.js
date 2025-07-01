@@ -96,7 +96,9 @@ export async function handler(event) {
 GetSignedUrl = async (event) => {
     const filename = event;
     const bucket = 'payment-screenshot'
-    const filePath = `${filename}`
+  const filePath = `${filename}`
+  
+  await supabase.storage.from(bucket).remove([filePath]); // Remove old file if exists
   
     const { data, error } = await supabase.storage
       .from(bucket)

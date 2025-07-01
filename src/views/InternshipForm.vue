@@ -248,7 +248,7 @@
               </div>
             </div>
             <!-- UPI Payment Section -->
-            <div v-if="showUpiSection && !isEmailVerified">
+            <div v-if="showUpiSection && (!isEmailVerified || oldreg)">
               <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
                 <h3 class="text-lg font-semibold text-blue-900 mb-4">Payment Details</h3>
                 
@@ -313,7 +313,7 @@
 
             <!-- Payment Screenshot Upload -->
             <div>
-              <label for="paymentScreenshot" class="block text-sm font-medium text-gray-700 mb-2" :class="{ 'cursor-not-allowed opacity-50': isEmailVerified }">
+              <label for="paymentScreenshot" class="block text-sm font-medium text-gray-700 mb-2" :class="{ '!cursor-not-allowed !opacity-50 ': isEmailVerified && !oldreg }"  :title="isEmailVerified && !oldreg ? 'You can’t edit this! Please mail us if you need to.' : ''">
                 Payment Screenshot *
               </label>
               <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
@@ -362,7 +362,7 @@
                   type="text"
                   id="otp"
                   v-model="otpValue"
-                  placeholder="Enter 6-digit OTP"
+                  placeholder="Enter 4-digit OTP"
                   maxlength="6"
                   class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                 />
@@ -538,11 +538,11 @@ const handleEmailVerified = (data) => {
   formData.fullname          = user_data.name
   formData.email             = user_data.email
   formData.phone             = user_data.mobile_number
-  formData.college           = user_data.college
+  formData.college           = user_data.college || ''
   formData.domain            = user_data.domain
-  formData.department        = user_data.department
+  formData.department        = user_data.department || ''
   formData.mode              = user_data.mode
-  formData.certificateType   = user_data.certificate_type
+  formData.certificateType   = user_data.certificate_type || ''
 
   // 2. Split the available_period into fromMonth / toMonth
   const [from, to] = user_data.available_period.split(' to ')
@@ -550,11 +550,11 @@ const handleEmailVerified = (data) => {
   formData.toMonth   = to.trim()
 
   // 3. Payment screenshot URL
-  formData.paymentScreenshotUrl = user_data.payment_screenshot
+  formData.paymentScreenshotUrl = user_data.payment_screenshot || ''
 
   // 4. If you treat “otherDepartment” specially:
-  if (user_data.department.toLowerCase() === 'other') {
-    formData.otherDepartment = user_data.department
+  if ((user_data.department || '').toLowerCase() === 'other') {
+    formData.otherDepartment = user_data.department || ''
     formData.department = ''
   }
   isEmailVerified.value = true
@@ -715,7 +715,7 @@ const handleFileUpload = async (event) => {
   await sendotp()
 
 }
-
+let filePath;
 // OTP Verification
 const verifyOtp = async () => {
   if (!otpValue.value.trim()) {
@@ -751,7 +751,7 @@ const verifyOtp = async () => {
       submitMessage.value = 'OTP verified successfully! You can now complete your registration.'
       submitSuccess.value = true
       fileError.value = ''
-      filepath = `payment-screenshot/${filename}`;
+      filePath = `payment-screenshot/${filename}`;
 
       fetch(url, {
         method: 'PUT',
@@ -761,9 +761,9 @@ const verifyOtp = async () => {
         if (!response.ok) {
           throw new Error('File upload failed. Please try again.')
         } else {
-          formData.paymentScreenshotUrl = `${SUPABASE_URL}/storage/v1/object/public/payment-screenshot/${filePath}`;
+          formData.paymentScreenshotUrl = `${SUPABASE_URL}/storage/v1/object/public/${filePath}`;
       console.log('File uploaded successfully:', formData.paymentScreenshotUrl)
-      console.log(`${SUPABASE_URL}/storage/v1/object/public/payment-screenshot/${filePath}`)
+      console.log(`${SUPABASE_URL}/storage/v1/object/public/${filePath}`)
     
         }
       })
@@ -788,7 +788,7 @@ const sendotp = async () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email: formData.email.trim() })
+      body: JSON.stringify({ email: formData.email.trim(),editmode: isEmailVerified.value })
     })
 
     const res = await response.json()
@@ -871,15 +871,17 @@ function validateForm() {
   if (formData.department === 'Other' && !formData.otherDepartment.trim()) { errors.otherDepartment = 'Please specify your department.'; valid = false }
   if (!formData.fromMonth || !formData.toMonth || !period.value) { errors.period = 'Please select a valid period.'; valid = false }
   if (!formData.mode) { errors.mode = 'Please select a mode.'; valid = false }
-  if (!formData.certificateType) { errors.certificateType = 'Please select certificate type.'; valid = false }
-  if (!formData.paymentScreenshot) { errors.paymentScreenshot = 'Payment screenshot is required.'; valid = false }
-  if (showOtpField.value && !isOtpVerified.value) { 
-    errors.paymentScreenshot = 'Please verify OTP first.'; 
-    valid = false 
+  if (!isEmailVerified.value || oldreg) {
+    console.log("isEmailVerified.value", isEmailVerified.value, "oldreg", oldreg)
+    if (!formData.certificateType) { errors.certificateType = 'Please select certificate type.'; valid = false }
+    if (!formData.paymentScreenshot) { errors.paymentScreenshot = 'Payment screenshot is required.'; valid = false }
+    if (showOtpField.value && !isOtpVerified.value) {
+      errors.paymentScreenshot = 'Please verify OTP first.';
+      valid = false
+    }
   }
 
-
-  // seting up invalid month error
+  // Setting up invalid month error
   if (formData.fromMonth && formData.toMonth && months.indexOf(formData.fromMonth) > months.indexOf(formData.toMonth)) {
     errors.period = 'Please select a valid period.';
     valid = false;
@@ -889,12 +891,18 @@ function validateForm() {
 
 // Modified form submission
 const handleSubmit = async () => {
-  if (!validateForm()) return
-  
-  if (!isOtpVerified.value) {
-    submitMessage.value = 'Please verify OTP first'
-    submitSuccess.value = false
+  console.log("called handleSubmit")
+  if (!validateForm()) {
+    console.log("Form validation failed");
+    console.log(errors)
     return
+  }
+
+  if (!isOtpVerified.value && !isEmailVerified.value) {
+    console.log("OTP not verified");
+    submitMessage.value = 'Please verify OTP first';
+    submitSuccess.value = false;
+    return;
   }
   
   isSubmitting.value = true
@@ -909,17 +917,18 @@ const handleSubmit = async () => {
   available_period: period.value,
   mode: formData.mode,
   certificate_type: formData.certificateType,
-  payment_screenshot: formData.paymentScreenshotUrl || filepath
+  payment_screenshot: formData.paymentScreenshotUrl
 };
 
     Object.entries(formDataToSend).forEach(([key, value]) => {
       console.log(`${key}: ${value}`)
     })
-    
+
+    console.log("serious problem")
     // Your existing API call code here...
     const res = await fetch(apiUrl, {
         method: 'POST',
-        body: JSON.stringify({ payload: formDataToSend, update_form: isEmailVerified.value }),
+        body: JSON.stringify({ payload: formDataToSend, update_form: isEmailVerified.value, filename: formData.paymentScreenshotUrl ? formData.paymentScreenshotUrl.split('/').pop() : '' }),
       });
   
     const resData = await res.json();

@@ -1,16 +1,7 @@
-id,name,mobile_number,email,domain,available_period,mode,created_at
-13,Ragupathi K,6380454813,ragu96937@gmail.com,Web Development,July to August,online,2025-06-26 03:37:53.01604
-14,P.SRIMATHI,8667713368,srimathip6878@gmail.com,Data Science,June to July,online,2025-06-26 03:42:08.029896
-15,Raghavan s,07904007861,raghavansriraman01@gmail.com,AI,March to May,online,2025-06-26 03:58:11.509413
-16,Devashree s,8939482887,devashree1232006@gmail.com,Web Development,July to August,online,2025-06-26 04:47:55.19565
-17,S.Devasree,8939482887,devasree1232006@gmail.com,Web Development,July to August,online,2025-06-26 04:49:33.800712
-18,BHARATH BALASUBRAMANIAN,09659714140,bharathbalasubramanian4@gmail.com,AI,January to June,online,2025-06-26 05:18:03.362683
-19,rog,6791239923,abcdmnmjec45@gmail.com,Cybersecurity,January to June,online,2025-06-26 05:21:45.186038
-20,Girija Elumalai,8072947334,girijaias600@gmail.com,Cybersecurity,June to July,online,2025-06-26 05:33:28.07668
-21,NISHANTHINI SANKAR,8248409260,sankarnisha21@gmail.com,Data Science,July to August,online,2025-06-26 05:44:47.830025
-22,A.M.Jafrein,8122074789,jafrein96@gmail.com,Cybersecurity,June to July,online,2025-06-26 05:57:16.518066
-23,swetha,9790927655,swetha272210@gmail.com,Web Development,June to July,offline,2025-06-26 07:32:10.048401
-24,Bhavani,9150251393,bhavanipalani47@gmail.com,Web Development,July to August,online,2025-06-26 07:47:43.222114
-25,Srimathi A,8778602338,srimathia1225@gmail.com,Web Development,June to July,online,2025-06-26 08:51:02.142798
-26,Santhosh Thiruvengadam,8148983135,sahash1903@gmail.com,AI,August to November,offline,2025-06-27 12:19:31.411623
-27,Kishore kumar s,9444498960,seenukishore2005@gmail.com,AI,July to October,online,2025-06-27 13:57:49.972151
+id,name,mobile_number,email,domain,available_period,mode
+15,Raghavan s,07904007861,raghavansriraman01@gmail.com,AI,March to May,online
+22,A.M.Jafrein,8122074789,jafrein96@gmail.com,Cybersecurity,June to July,online
+26,Santhosh Thiruvengadam,8148983135,sahash1903@gmail.com,AI,August to November,offline
+37,Devi,7200477346,renukadeviv2004@gmail.com,Web Development,July to July,offline
+44,R JERY KRISTEN,9345836043,kenjery2@gmail.com,Web Development,July to July,offline
+53,Rubesh.A.M,7092532498,Rubeshrs11@gmail.com,AI,July to August,offline
