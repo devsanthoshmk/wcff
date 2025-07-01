@@ -9,19 +9,25 @@ const supabase = createClient(
   SUPABASE_SERVICE_ROLE_KEY
 );
 export async function handler(event) {
-  const { email } = JSON.parse(event.body);
+  const { email,editmode } = JSON.parse(event.body);
   const { data, error } = await supabase
     .from('applications')
     .select('*')
     .eq('email', email)
     .single();
 
-  console.log('Supabase select result:', data, error, email);
+  console.log('Supabase select result:', data, error, email,editmode);
 
-  if (data !== null) {
+  if (data !== null && !editmode) {
     return {
       statusCode: 400,
       body: JSON.stringify({ error: 'You have already registered for this internship. You can edit or register again', isreal: true })
+    };
+  } else 
+  if (editmode && data === null) {
+    return {  
+      statusCode: 400,
+      body: JSON.stringify({ error: 'You have not registered for this internship yet. Please register first.', isreal: true })
     };
   }
   const otp = Math.floor(1000 + Math.random() * 9000).toString();

@@ -38,6 +38,15 @@ const router = createRouter({
       }
     },
     {
+      path: '/internship/register/edit',
+      name: 'InternshipRegisterEdit',
+      component: () => import('@/views/InternshipForm.vue'),
+      props: {editMode:true},
+      meta: {
+        title: 'Internship Program - WCFF'
+      }
+    },
+    {
       path: '/internship',
       name: 'Internship',
       component: () => import('@/views/Internship.vue'),

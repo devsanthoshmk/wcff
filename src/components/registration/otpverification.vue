@@ -186,17 +186,23 @@
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: emailValue.value})
+        body: JSON.stringify({ email: emailValue.value, editmode: true})
       })
-      
+      const payload = await response.json()
+      console.log("send otp response", payload)
       if (response.ok) {
         otpSent.value = true
         statusMessage.value = `OTP sent to ${emailValue.value}. Please check your inbox.`
         status.value = 'success'
         startResendCooldown()
+      } else if (payload.isreal) {
+          statusMessage.value = payload.error
+          status.value = 'error'
       } else {
+
         throw new Error('Failed to send OTP')
       }
+      
     } catch (error) {
       statusMessage.value = 'Failed to send OTP. Please try again.'
       status.value = 'error'

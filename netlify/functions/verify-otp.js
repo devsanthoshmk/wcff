@@ -35,7 +35,7 @@ export async function handler(event) {
       };
     }
 
-    if (String(1234) !== otp) { // Replace with actual OTP validation logic record.otp
+    if (String(record.otp) !== otp) { // Replace with actual OTP validation logic record.otp
       return {
         statusCode: 400,
         body: JSON.stringify({ message: 'Invalid or expired OTP' }),

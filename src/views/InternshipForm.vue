@@ -516,6 +516,15 @@ import Button from 'primevue/button'
 
 import OtpVerification from '@/components/registration/OtpVerification.vue';
 
+const props = defineProps({
+  editMode: {
+    type: Boolean,
+    default: false
+  }
+})
+
+
+
 const emit = defineEmits(['verified', 'error']);
 let oldreg=false;
 const handleEmailVerified = (data) => {
@@ -582,7 +591,10 @@ const uploadedFileName = ref('')
 const showOtpVerificationComp = inject('showOtpVerificationComp')
 const isEmailVerified = ref(false)
 
-
+console.log('Edit Mode:', props.editMode)
+if (props.editMode) {
+  showOtpVerificationComp.value = true
+}
 
 // UPI Configuration
 const upiId = 'rockyraghav45@ptyes' // Replace with your actual UPI ID
