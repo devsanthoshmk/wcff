@@ -1,16 +1,32 @@
 import { createClient } from '@supabase/supabase-js';
 import nodemailer from 'nodemailer';
 
+const SUPABASE_SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zcWdxZGRrdHZhb2FkZWllY3BhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NDAxMjYxNCwiZXhwIjoyMDU5NTg4NjE0fQ.6BOG1mtQ-NcJ_7g_p2kTq6di1aspmoOfFiiH6eXk2G0";
 const SUPABASE_URL = 'https://msqgqddktvaoadeiecpa.supabase.co';
-const SERVICE_ROLE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zcWdxZGRrdHZhb2FkZWllY3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwMTI2MTQsImV4cCI6MjA1OTU4ODYxNH0.yyszmKkxSM7I9DruWv-JruyR9wBfgHg2zAF7y1pnDUI';
-const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
 
+const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_SERVICE_ROLE_KEY
+);
 export async function handler(event) {
   const { email } = JSON.parse(event.body);
+  const { data, error } = await supabase
+    .from('applications')
+    .select('*')
+    .eq('email', email)
+    .single();
+
+  console.log('Supabase select result:', data, error, email);
+
+  if (data !== null) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'You have already registered for this internship. You can edit or register again', isreal: true })
+    };
+  }
   const otp = Math.floor(1000 + Math.random() * 9000).toString();
 
-  
-  
+
 
 
       // Clean up expired OTPs (> 5 min)

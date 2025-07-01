@@ -68,11 +68,11 @@ export async function handler(event, context) {
         body: JSON.stringify({ error: 'Method Not Allowed' })
       };
     }
-  
-    let payload;
+
+    let payload, update_form;
   try {
       console.log('Received event:', event);
-      payload = JSON.parse(event.body);
+     ({payload, update_form} = JSON.parse(event.body));
     } catch {
       return {
         statusCode: 400,
@@ -136,15 +136,24 @@ export async function handler(event, context) {
     } catch (err) {
       console.error("Email sending failed:", err);
       ismailed = false;
-    }
+  }
   
-    const { data, error } = await supabase
+  let data, error;
+  if (update_form) {
+    ({ data, error } = await supabase
       .from('applications')
-      .insert([payload]);
+      .upsert([payload], { onConflict: 'email' }));
+
+  } else {
+    ({ data, error } = await supabase
+      .from('applications')
+      .insert([payload]));
+    
+  }
   
     if (error) {
       return {
-        statusCode: 500,
+        statusCode: Number(error.code) || 500 ,
         body: JSON.stringify({ error: error.message || 'Database error' })
       };
     }

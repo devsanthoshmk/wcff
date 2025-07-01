@@ -303,6 +303,8 @@
                     <li>3. Upload the screenshot below</li>
                     <li>4. Verify OTP sent to your email</li>
                     <li>5. Complete your registration</li>
+                    <li>6. If you have any issues, please contact us at <a style="text-decoration: underline;" href="mailto:wcff.feedback@gmail.com">wcff.feedback@gmail.com</a></li>
+                    <li>7. You can't edit your Certificate Type and Payment Method after submission.</li>
                   </ol>
                 </div>
               </div>
@@ -583,7 +585,7 @@ const isEmailVerified = ref(false)
 
 
 // UPI Configuration
-const upiId = '7904007861@ptyes' // Replace with your actual UPI ID
+const upiId = 'rockyraghav45@ptyes' // Replace with your actual UPI ID
 const merchantName = 'Ragavan S(Founder of WCFF)'
 
 // Computed amount based on certificate type
@@ -774,16 +776,21 @@ const sendotp = async () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email: formData.email })
+      body: JSON.stringify({ email: formData.email.trim() })
     })
-    
+
+    const res = await response.json()
     if (response.ok) {
       otpmsg.value.message = `OTP sent to your email ${formData.email}.`
       otpmsg.value.status = 'success'
+    } else if (response.status === 400 && res.isreal === true) {
+      otpmsg.value.message = res.error
+      otpmsg.value.status = 'error'
     } else {
       throw new Error('Failed to send OTP')
     }
   } catch (error) {
+    console.error('Error sending OTP:', error)
     otpmsg.value.message = 'Failed to send OTP. Please check your email and try again.'
     otpmsg.value.status = 'error'
   }
@@ -900,16 +907,21 @@ const handleSubmit = async () => {
     // Your existing API call code here...
     const res = await fetch(apiUrl, {
         method: 'POST',
-        body: JSON.stringify(formDataToSend)
+        body: JSON.stringify({ payload: formDataToSend, update_form: isEmailVerified.value }),
       });
   
     const resData = await res.json();
     if (!res.ok) {
-      console.error('Server error:', resData);
-      submitSuccess.value = false
-    submitMessage.value = 'Registration failed. Please try again.'
-        return;
+      console.error('API error:', resData.error);
+      if (res.status === 23505) {
+        submitSuccess.value = false
+        submitMessage.value = 'You have already registered for this internship.'
+      } else {
+        submitSuccess.value = false
+        submitMessage.value = resData.error.message || 'Registration failed. Please try again.'
       }
+      return;
+    }
     submitSuccess.value = true
     submitMessage.value = 'Registration successful!'
     

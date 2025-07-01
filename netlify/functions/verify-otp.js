@@ -56,7 +56,7 @@ export async function handler(event) {
         body: JSON.stringify({ success: getSignedUrl.statusCode === 200 ? true : false, url: getSignedUrl.body.url, filename: getSignedUrl.body.path }),
       };
     }
-    if (getData!== undefined) {
+    else if (getData!== undefined) {
       const { data, error } = await supabase
         .from('applications')
         .select('*')
