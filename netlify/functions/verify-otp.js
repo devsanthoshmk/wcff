@@ -59,6 +59,15 @@ export async function handler(event) {
       statusCode: 500,
       body: JSON.stringify({ error: 'Internal server error' }),
     };
+  } finally {
+    const error = await deleteOldRows();
+    if (error) {
+      sendMail({
+        subject: 'FROM WCFF REG SERVER: Error in deleteOldRows function',
+        email: 'connectwithsanthoshmk@gmail.com',
+        message: `Error details: ${error.message}`
+      });
+    }
   }
 }
 
@@ -85,5 +94,63 @@ GetSignedUrl = async (event) => {
         path: filePath
       }
     }
-  }
+}
   
+
+async function deleteOldRows() {
+  const now = new Date();
+  const fiveMinsAgo = new Date(now.getTime() - 5 * 60 * 1000).toISOString();
+
+  const { data, error } = await supabase
+    .from('your_table')
+    .delete()
+    .lt('created_at', fiveMinsAgo); // created_at < 5 mins ago
+
+  if (error) {
+    console.error('Delete error:', error);
+    return error
+  } else {
+    console.log('Deleted rows:', data);
+  }
+}
+  
+
+// Helper to send mail
+const sendMail = (options) => {
+  const mailOptions = {
+    from: "wcff.feedback@gmail.com",
+    to: "clientworkwcff@gmail.com", // rockyraghav45@gmail.com
+    subject: `USER FEEDBACK: ${options.subject}`,
+    replyTo: options.email,
+    text: `
+Name: ${options.name}
+Email: ${options.email}
+Subject: ${options.subject}
+
+Message:
+${options.message}
+    `,
+    html: `
+      <h3>Contact-Us Form Submission</h3>
+      <p><strong>Name:</strong> ${options.name}</p>
+      <p><strong>Email:</strong> ${options.email}</p>
+      <p><strong>Subject:</strong> ${options.subject}</p>
+      <p><strong>Message:</strong></p>
+      <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px;">
+        ${options.message.replace(/\n/g, '<br>')}
+      </div>
+    `
+  }
+
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.error('Email sending error:', err)
+        reject(err)
+      } else {
+        console.log('Email sent successfully:', info.response)
+        resolve(info)
+      }
+    })
+  })
+}

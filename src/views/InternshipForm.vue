@@ -113,6 +113,7 @@
                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
                 >
                   <option value="">Select Department</option>
+                  <option value="Computer Science Engineering">Computer Science And Business Systems</option>
                   <option value="Computer Science Engineering">Computer Science Engineering</option>
                   <option value="Information Technology">Information Technology</option>
                   <option value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
@@ -597,7 +598,7 @@ const domainOptions = [
 ]
 
 // Months array
-const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
+const months = ['July', 'August', 'September', 'October', 'November', 'December' ]
 
 // Computed period
 const period = computed(() => {
@@ -702,6 +703,7 @@ const verifyOtp = async () => {
 
 const sendotp = async () => {
   try {
+  if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) { new Error('Valid email is required.'); }
     showOtpField.value = true
   otpmsg.value.message = 'OTP IS BEING SENT TO YOUR EMAIL. PLEASE WAIT...'
   otpmsg.value.status = 'processing';
@@ -720,9 +722,8 @@ const sendotp = async () => {
       throw new Error('Failed to send OTP')
     }
   } catch (error) {
-    otpmsg.value.message = 'Failed to send OTP. Please try again.'
+    otpmsg.value.message = 'Failed to send OTP. Please check your email and try again.'
     otpmsg.value.status = 'error'
-    formData.paymentScreenshot = null
   }
 }
 
@@ -795,7 +796,13 @@ function validateForm() {
     errors.paymentScreenshot = 'Please verify OTP first.'; 
     valid = false 
   }
-  
+
+
+  // seting up invalid month error
+  if (formData.fromMonth && formData.toMonth && months.indexOf(formData.fromMonth) > months.indexOf(formData.toMonth)) {
+    errors.period = 'Please select a valid period.';
+    valid = false;
+  }
   return valid
 }
 
