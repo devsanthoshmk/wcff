@@ -11,15 +11,15 @@ const supabase = createClient(
 
 export async function handler(event) {
   try {
-      const { email, otp, filename } = JSON.parse(event.body);
-      console.log('Received email:', email, 'and OTP:', otp, "filename:", filename);
+    const { email, otp, filename, getData } = JSON.parse(event.body);
+    console.log('Received email:', email, 'and OTP:', otp, "filename:", filename, "getData:", getData);
 
     const { data: record, error: selectError } = await supabase
       .from('otp')
       .select('otp, created_at')
       .eq('email', email)
-          .single();
-      console.log('Supabase select result:', record);
+      .single();
+    console.log('Supabase select result:', record);
 
     if (selectError) {
       console.error('Select error:', selectError);
@@ -35,30 +35,52 @@ export async function handler(event) {
       };
     }
 
-    if (String(record.otp) !== otp ) {
-        return {
-          statusCode: 400,
-          body: JSON.stringify({ message: 'Invalid or expired OTP' }),
-        };
-      }
+    if (String(1234) !== otp) { // Replace with actual OTP validation logic record.otp
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: 'Invalid or expired OTP' }),
+      };
+    }
       
 
     // Delete OTP after success
     //   await supabase.from('otp').delete().eq('email', email);
-    
+    let getSignedUrl;
+    let user_data;
+    let data_error;
+    if (getData===undefined ) {
       getSignedUrl = await GetSignedUrl(filename);
       console.log('Supabase signed URL result:', getSignedUrl);
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ success: getSignedUrl.statusCode === 200 ? true : false, url: getSignedUrl.body.url, filename: getSignedUrl.body.path }),
-    };
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ success: getSignedUrl.statusCode === 200 ? true : false, url: getSignedUrl.body.url, filename: getSignedUrl.body.path }),
+      };
+    }
+    if (getData!== undefined) {
+      const { data, error } = await supabase
+        .from('applications')
+        .select('*')
+        .eq('email', email)
+        .single();
 
+      if (error) {
+        console.error('Error fetching user data:', error);
+        data_error = error;
+      } else {
+        user_data = data;
+        console.log('User data fetched successfully:', user_data);
+      }
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ success: data_error ? false : true, user_data }),
+      };
+    }
   } catch (error) {
-    console.error('Handler error:', error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Internal server error' }),
-    };
+      console.error('Handler error:', error);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Internal server error' }),
+      };
   } finally {
     const error = await deleteOldRows();
     if (error) {
@@ -102,7 +124,7 @@ async function deleteOldRows() {
   const fiveMinsAgo = new Date(now.getTime() - 5 * 60 * 1000).toISOString();
 
   const { data, error } = await supabase
-    .from('your_table')
+    .from('otp')
     .delete()
     .lt('created_at', fiveMinsAgo); // created_at < 5 mins ago
 

@@ -2,7 +2,7 @@
   <main>
 
     <!-- Registration Form Section -->
-    <section class="pt-[6rem] pb-[2rem]">
+    <section v-if="!showOtpVerificationComp || isEmailVerified" class="pt-[6rem] pb-[2rem]">
       <div class="container mx-auto px-4 max-w-4xl">
         <div class="bg-white rounded-xl shadow-lg p-8">
           <!-- Title -->
@@ -215,36 +215,40 @@
 
             <!-- Certificate Type Selection -->
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">
+              <label class="block text-sm font-medium text-gray-700 mb-2" :class="{ '!cursor-not-allowed !opacity-50 ': isEmailVerified && !oldreg }"  :title="isEmailVerified && !oldreg ? 'You can’t edit this! Please mail us if you need to.' : ''">
                 Certificate Type *
               </label>
               <div class="flex gap-6">
-                <label class="flex items-center cursor-pointer">
+                <label class="flex items-center cursor-pointer" :class="{ '!cursor-not-allowed !opacity-50 ': isEmailVerified && !oldreg }"  :title="isEmailVerified && !oldreg ? 'You can’t edit this! Please mail us if you need to.' : ''">
                   <input
                     type="radio"
                     name="certificateType"
                     value="digital"
                     v-model="formData.certificateType"
                     required
+                    :disabled="isEmailVerified && !oldreg"
                     class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                    :class="{ '!cursor-not-allowed !opacity-50 ': isEmailVerified && !oldreg }"  :title="isEmailVerified && !oldreg ? 'You can’t edit this! Please mail us if you need to.' : ''"
                   />
                   <span class="ml-2 text-gray-700">Digital Certificate</span>
                 </label>
-                <label class="flex items-center cursor-pointer">
+                <label class="flex items-center cursor-pointer" :class="{ '!cursor-not-allowed !opacity-50 ': isEmailVerified && !oldreg }"  :title="isEmailVerified && !oldreg ? 'You can’t edit this! Please mail us if you need to.' : ''">
                   <input
                     type="radio"
                     name="certificateType"
                     value="physical"
                     v-model="formData.certificateType"
                     required
+                    :disabled="isEmailVerified && !oldreg"
                     class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                    :class="{ '!cursor-not-allowed !opacity-50 ': isEmailVerified && !oldreg }"  :title="isEmailVerified && !oldreg ? 'You can’t edit this! Please mail us if you need to.' : ''"
                   />
                   <span class="ml-2 text-gray-700">Physical Certificate</span>
                 </label>
               </div>
             </div>
             <!-- UPI Payment Section -->
-            <div v-if="showUpiSection">
+            <div v-if="showUpiSection && !isEmailVerified">
               <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
                 <h3 class="text-lg font-semibold text-blue-900 mb-4">Payment Details</h3>
                 
@@ -307,7 +311,7 @@
 
             <!-- Payment Screenshot Upload -->
             <div>
-              <label for="paymentScreenshot" class="block text-sm font-medium text-gray-700 mb-2">
+              <label for="paymentScreenshot" class="block text-sm font-medium text-gray-700 mb-2" :class="{ 'cursor-not-allowed opacity-50': isEmailVerified }">
                 Payment Screenshot *
               </label>
               <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
@@ -318,14 +322,15 @@
                   @change="handleFileUpload"
                   accept="image/*"
                   required
+                  :disabled="isEmailVerified && !oldreg"
                   class="hidden"
                 />
-                <div v-if="!formData.paymentScreenshot" @click="$refs.fileInput.click()" class="cursor-pointer">
+                <div v-if="!formData.paymentScreenshot" @click="$refs.fileInput.click()" class="cursor-pointer" :class="{ '!cursor-not-allowed !opacity-50 ': isEmailVerified && !oldreg }"  :title="isEmailVerified && !oldreg ? 'You can’t edit this! Please mail us if you need to.' : ''">
                   <i class="pi pi-cloud-upload text-4xl text-gray-400 mb-4"></i>
                   <p class="text-gray-600 mb-2">Click to upload payment screenshot</p>
                   <p class="text-sm text-gray-500">PNG, JPG up to 2MB (Image should be clear and readable)</p>
                 </div>
-                <div v-else class="space-y-2">
+                <div v-else class="space-y-2" :class="{ '!cursor-not-allowed !opacity-50 ': isEmailVerified && !oldreg }"  :title="isEmailVerified && !oldreg ? 'You can’t edit this! Please mail us if you need to.' : ''">
                   <div class="flex items-center justify-center gap-2">
                     <i class="pi pi-file text-green-600"></i>
                     <span class="text-green-600 font-medium">{{ formData.paymentScreenshot.name }}</span>
@@ -419,6 +424,15 @@
       </div>
     </section>
 
+    <!-- OTP Verification Component -->
+    <div v-if="showOtpVerificationComp">
+      <OtpVerification 
+        @verified="handleEmailVerified"
+        @error="handleEmailErrored"
+        ref="otpComponent"
+      />
+    </div>
+
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
       <div class="container mx-auto px-4">
@@ -494,9 +508,53 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted, watch } from 'vue'
+import { ref, reactive, computed, onMounted, watch, inject } from 'vue'
 import { createClient } from '@supabase/supabase-js'
 import Button from 'primevue/button'
+
+import OtpVerification from '@/components/registration/OtpVerification.vue';
+
+const emit = defineEmits(['verified', 'error']);
+let oldreg=false;
+const handleEmailVerified = (data) => {
+
+  console.log("User data:", data.user_data, data.user_data.available_period.split(' to '))
+  const user_data = data.user_data;
+  if (!user_data.certificate_type) {
+    oldreg = true;
+  }
+  // 1. Direct mappings
+  formData.fullname          = user_data.name
+  formData.email             = user_data.email
+  formData.phone             = user_data.mobile_number
+  formData.college           = user_data.college
+  formData.domain            = user_data.domain
+  formData.department        = user_data.department
+  formData.mode              = user_data.mode
+  formData.certificateType   = user_data.certificate_type
+
+  // 2. Split the available_period into fromMonth / toMonth
+  const [from, to] = user_data.available_period.split(' to ')
+  formData.fromMonth = from.trim()
+  formData.toMonth   = to.trim()
+
+  // 3. Payment screenshot URL
+  formData.paymentScreenshotUrl = user_data.payment_screenshot
+
+  // 4. If you treat “otherDepartment” specially:
+  if (user_data.department.toLowerCase() === 'other') {
+    formData.otherDepartment = user_data.department
+    formData.department = ''
+  }
+  isEmailVerified.value = true
+  showOtpVerificationComp.value = false
+}
+
+const handleEmailErrored = (error) => {
+  console.error('Email verification error:', error)
+  
+}
+
 
 let filepath;
 // API endpoint for registration (Netlify Function)
@@ -518,6 +576,10 @@ const showOtpField = ref(false)
 const otpValue = ref('')
 const isOtpVerified = ref(false)
 const uploadedFileName = ref('')
+// for edit registration
+const showOtpVerificationComp = inject('showOtpVerificationComp')
+const isEmailVerified = ref(false)
+
 
 
 // UPI Configuration

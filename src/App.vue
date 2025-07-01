@@ -10,10 +10,15 @@
 import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
 import { useRoute } from 'vue-router';
-import { computed } from 'vue';
+import { computed, ref, provide } from 'vue';
+
+// for edit registration in registration page
+const showOtpVerificationComp = ref(false)
+provide('showOtpVerificationComp', showOtpVerificationComp);
 
 
 const route = useRoute();
+
 const about_route = computed(() => 
   route.matched.some(r => r.name === 'InternshipRegister')
 );

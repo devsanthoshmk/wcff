@@ -9,12 +9,7 @@ export async function handler(event) {
   const { email } = JSON.parse(event.body);
   const otp = Math.floor(1000 + Math.random() * 9000).toString();
 
-  // Upsert OTP (replace if already exists)
-  const { error: insertError } = await supabase.from('otp').upsert({ email, otp }, { onConflict: 'email' });
-  if (insertError) {
-    console.error('Insert error:', insertError);
-    return { statusCode: 500, body: JSON.stringify({ error: 'Supabase insert failed' }) };
-  }
+  
   
 
 
@@ -44,6 +39,12 @@ export async function handler(event) {
     text: `Your OTP is ${otp}. It is valid for 5 minutes.`,
   });
 
+      // Upsert OTP (replace if already exists)
+  const { error: insertError } = await supabase.from('otp').upsert({ email, otp }, { onConflict: 'email' });
+  if (insertError) {
+    console.error('Insert error:', insertError);
+    return { statusCode: 500, body: JSON.stringify({ error: 'Supabase insert failed' }) };
+  }
   return {
     statusCode: 200,
     body: JSON.stringify({ message: 'OTP sent' }),

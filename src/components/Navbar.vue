@@ -30,13 +30,26 @@
         </router-link>
         
         <!-- Apply Internship Button -->
-        <router-link :to="props.about_intern ? '/internship/register/' : '/internship/register/'">
+        <Button
+          v-if="props.about_intern"
+          label="View/Edit Registration"
+          icon="pi pi-pencil"
+          class="rounded-lg  transition-all text-xs sm:text-xs p-2 sm:p-3 bg-black text-white hover:bg-neutral-800" 
+          @click="showotp"
+          title="View/Edit Registration"
+        />
+
+        <router-link
+      v-else
+      to="/internship/register/"
+      class="no-underline"
+    >
           <Button 
-            :label="props.about_intern ? 'View/Edit Registration' : 'Apply Internship'" 
-            :icon="props.about_intern ? 'pi pi-pencil' : 'pi pi-briefcase'" 
-            class="rounded-lg  transition-all text-xs sm:text-xs p-2 sm:p-3" 
-            :class="props.about_intern ? 'bg-green-600 text-white hover:bg-green-800' : 'bg-[#5A58E9] text-white hover:bg-[#4A46C1]'"
-            :title="props.about_intern ? 'View/Edit Details' : 'Apply Internship'"
+           label="Apply Internship"
+        icon="pi pi-briefcase"
+            class="rounded-lg  transition-all text-xs sm:text-xs p-2 sm:p-3 bg-[#5A58E9] text-white hover:bg-[#4A46C1]" 
+
+            title='Apply Internship'
           />
         </router-link>
       </div>
@@ -47,7 +60,7 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { ref, onMounted, onUnmounted } from 'vue';
-import { defineProps,computed } from 'vue'
+import { defineProps,computed,inject  } from 'vue'
 
 const props = defineProps({
   about_intern : {
@@ -126,4 +139,12 @@ const items = computed(() => [
       }
 ]);
 console.log(props.about_intern)
+
+const showOtpVerificationComp = inject('showOtpVerificationComp');
+
+// for view/edit registration btn
+function showotp(val){
+  showOtpVerificationComp.value = true;
+  console.log('showotp called with value:', showOtpVerificationComp);
+}
 </script>
