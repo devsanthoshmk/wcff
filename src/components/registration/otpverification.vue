@@ -172,7 +172,7 @@
       emailError.value = 'Please enter a valid email address'
       return
     }
-    
+    // delete this commit
     // Clear email error if validation passes
     emailError.value = ''
     
