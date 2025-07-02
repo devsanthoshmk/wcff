@@ -113,7 +113,7 @@
                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
                 >
                   <option value="">Select Department</option>
-                  <option value="Computer Science Engineering">Computer Science And Business Systems</option>
+                  <option value="Computer Science And Business Systems">Computer Science And Business Systems</option>
                   <option value="Computer Science Engineering">Computer Science Engineering</option>
                   <option value="Information Technology">Information Technology</option>
                   <option value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
