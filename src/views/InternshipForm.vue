@@ -871,6 +871,7 @@ function validateForm() {
   if (formData.department === 'Other' && !formData.otherDepartment.trim()) { errors.otherDepartment = 'Please specify your department.'; valid = false }
   if (!formData.fromMonth || !formData.toMonth || !period.value) { errors.period = 'Please select a valid period.'; valid = false }
   if (!formData.mode) { errors.mode = 'Please select a mode.'; valid = false }
+
   if (!isEmailVerified.value || oldreg) {
     console.log("isEmailVerified.value", isEmailVerified.value, "oldreg", oldreg)
     if (!formData.certificateType) { errors.certificateType = 'Please select certificate type.'; valid = false }
@@ -886,15 +887,51 @@ function validateForm() {
     errors.period = 'Please select a valid period.';
     valid = false;
   }
+  console.log("Form validation errors:", errors)
   return valid
+}
+
+function showErrorBelow(el, msg) {
+  // remove any existing error <p> we added before
+  const next = el.nextElementSibling
+  if (next && next.classList.contains('error-msg')) {
+    next.remove()
+  }
+
+  // create the new <p>
+  const p = document.createElement('p')
+  p.className = 'error-msg text-red-600 text-sm mt-1'
+  p.textContent = msg
+  p.id = "form-error"
+
+  // insert it right after the element
+  el.parentNode.insertBefore(p, el.nextSibling)
 }
 
 // Modified form submission
 const handleSubmit = async () => {
-  console.log("called handleSubmit")
+  // clear out any old error tags for all fields
+  try{
+    document.querySelectorAll('.error-msg').forEach(el => el.remove())
+  } catch (e) {
+    console.error("Error removing old error messages:", e)
+  }
+
+  console.log("called handleSubmit",errors)
   if (!validateForm()) {
     console.log("Form validation failed");
     console.log(errors)
+    const firstKey = Object.keys(errors).find(k => errors[k])
+    const targetId = firstKey === 'period' ? 'fromMonth' : firstKey
+    const el = document.getElementById(targetId)
+    if (el) {
+      // show the new error message
+      showErrorBelow(el, errors[firstKey])
+
+      // scroll + focus
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      el.focus({ preventScroll: true })
+    }
     return
   }
 
