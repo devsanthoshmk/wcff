@@ -43,6 +43,7 @@ WCFF Internship Team
   <p>We’re currently reviewing your application and checking availability for the <strong>${options.domain}</strong> domain during the <strong>${options.available_period}</strong> period.</p>
   <p><strong>Please attach your resume (PDF) named as <code>name-college.pdf</code>.</strong></p>
   <p>We’ll be in touch soon with further updates. We look forward to having you on board!</p>
+  <p>we'll also send you the payment receipt once it's verified.</p>
   <p style="margin-top: 20px;">Best regards,<br><strong style="color: #1d3557;">WCFF Internship Team</strong></p>
 </div>
 
